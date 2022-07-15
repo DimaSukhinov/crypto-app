@@ -1,0 +1,44 @@
+.value {
+
+  &__header {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid;
+  }
+
+  &__back {
+    cursor: pointer;
+  }
+
+  &__name {
+    margin-left: 350px;
+  }
+
+  &__description {
+    display: flex;
+    height: 500px;
+  }
+
+  &__graphic {
+    border-right: 1px solid;
+    width: 600px;
+  }
+
+  &__about {
+    padding: 90px 0 90px 0;
+  }
+
+  &__item {
+    padding: 10px;
+  }
+
+  &__add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-top: 1px solid;
+    width: 300px;
+    height: 146px;
+  }
+}
