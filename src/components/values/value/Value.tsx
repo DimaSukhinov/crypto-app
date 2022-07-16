@@ -1,20 +1,28 @@
-import React, {ChangeEvent, useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import './Value.scss';
-import {ValuesType} from '../../../store/values-reducer';
+import {ValueType} from '../../../store/values-reducer';
+import {useDispatch} from 'react-redux';
+import {addToPortfolioAC} from '../../../store/portfolio-reducer';
 
 type ValuePropsType = {
     value: string
-    values: ValuesType[]
+    valueCount: number
+    values: ValueType[]
     navigateToValues: () => void
+    setValueCount: (valueCount: number) => void
+    onValueCountChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Value = React.memo((props: ValuePropsType) => {
 
-    const [valueCount, setValueCount] = useState<number>(0)
-
-    const onValueCountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => setValueCount(+e.currentTarget.value), [])
+    const dispatch = useDispatch()
 
     const backToValuesPage = useCallback(() => props.navigateToValues(), [props])
+
+    const addToPortfolio = (id: string, name: string, price: string, valueCount: number) => () => {
+        dispatch(addToPortfolioAC(id, name, price, valueCount))
+        props.setValueCount(0)
+    }
 
     return (
         <div className={'value'}>
@@ -47,9 +55,12 @@ export const Value = React.memo((props: ValuePropsType) => {
                             </div>
                         </div>
                         <div className={'value__add'}>
-                            <input type="number" onChange={onValueCountChange}/>
-                            Price: {(valueCount * +v.priceUsd).toFixed(2)} $
-                            <button>Add</button>
+                            <input type="number" onChange={props.onValueCountChange}/>
+                            Price: {(props.valueCount * +v.priceUsd).toFixed(2)} $
+                            <div className={'valueList__add'}
+                                 onClick={addToPortfolio(v.id, v.name, v.priceUsd, props.valueCount)}>
+                                Add
+                            </div>
                         </div>
                     </div>
                 </div>

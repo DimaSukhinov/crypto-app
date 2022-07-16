@@ -1,14 +1,19 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import './Header.scss';
+import {Modal} from '../modal/Modal';
+import {useAppSelector} from '../../store/store';
+import {removeFromPortfolioAC} from '../../store/portfolio-reducer';
+import {useDispatch} from 'react-redux';
 
-type HeaderPropsType = {
-    active: boolean
-    setActive: (active: boolean) => void
-}
+export const Header = React.memo(() => {
 
-export const Header = React.memo((props: HeaderPropsType) => {
+    const dispatch = useDispatch()
+    const portfolio = useAppSelector((store) => store.portfolio)
+    const [activePortfolioModal, setActivePortfolioModal] = useState<boolean>(false)
 
-    const openPortfolio = useCallback(() => props.setActive(true), [props])
+    const openPortfolio = useCallback(() => setActivePortfolioModal(true), [])
+
+    const removeValueFromPortfolio = useCallback((id: string) => () => dispatch(removeFromPortfolioAC(id)), [dispatch])
 
     return (
         <div className={'header'}>
@@ -23,6 +28,22 @@ export const Header = React.memo((props: HeaderPropsType) => {
                     Portfolio
                 </div>
             </div>
+            {activePortfolioModal && <Modal active={activePortfolioModal} setActive={setActivePortfolioModal}>
+                {portfolio.map(v => <div className={'app__portfolioValue'}>
+                    <div className={'app__item'}>
+                        {v.name}
+                    </div>
+                    <div className={'app__item'}>
+                        {v.valueCount}
+                    </div>
+                    <div className={'app__item'}>
+                        {+(v.valueCount * +v.price).toFixed(2)} $
+                    </div>
+                    <div className={'app__delete'} onClick={removeValueFromPortfolio(v.id)}>
+                        x
+                    </div>
+                </div>)}
+            </Modal>}
         </div>
     );
 })

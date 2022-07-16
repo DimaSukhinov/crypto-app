@@ -9,10 +9,10 @@ type PortfolioPropsType = {
 
 export const Modal = React.memo((props: PortfolioPropsType) => {
 
-    const closePortfolio = useCallback(() => props.setActive(false), [props])
+    const closeModal = useCallback(() => props.setActive(false), [props])
 
     return (
-        <div className={'portfolio'} onClick={closePortfolio}>
+        <div className={'portfolio'} onClick={closeModal}>
             <div className={'portfolio__content'} onClick={e => e.stopPropagation()}>
                 {props.children}
             </div>

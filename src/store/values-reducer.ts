@@ -1,6 +1,6 @@
-const initialState: ValuesType[] = []
+const initialState: ValueType[] = []
 
-export const valuesReducer = (state: ValuesType[] = initialState, action: ActionsType): ValuesType[] => {
+export const valuesReducer = (state: ValueType[] = initialState, action: ActionsType): ValueType[] => {
     switch (action.type) {
         case 'SET-VALUES':
             return action.values.map(v => {
@@ -11,13 +11,13 @@ export const valuesReducer = (state: ValuesType[] = initialState, action: Action
     }
 }
 
-export const setValuesAC = (values: ValuesType[]) => {
+export const setValuesAC = (values: ValueType[]) => {
     return {type: 'SET-VALUES', values} as const
 }
 
 type ActionsType = ReturnType<typeof setValuesAC>
 
-export type ValuesType = {
+export type ValueType = {
     id: string
     rank: string
     symbol: string
