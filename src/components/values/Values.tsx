@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import './Values.scss';
-import {ValuesType} from '../../App';
+import {ValuesType} from '../../store/values-reducer';
 
 type ValueListPropsType = {
     values: ValuesType[]

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useCallback, useState} from 'react';
 import './Value.scss';
-import {ValuesType} from '../../../App';
+import {ValuesType} from '../../../store/values-reducer';
 
 type ValuePropsType = {
     value: string
