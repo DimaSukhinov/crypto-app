@@ -8,6 +8,7 @@ import {cryptoAPI} from './api/api';
 import {useAppSelector} from './store/store';
 import {useDispatch} from 'react-redux';
 import {setValuesAC} from './store/values-reducer';
+import {Modal} from './components/modal/Modal';
 
 export const App = React.memo(() => {
 
@@ -22,6 +23,7 @@ export const App = React.memo(() => {
 
     const navigate = useNavigate()
     const [value, setValue] = useState<string>('')
+    const [activePortfolioModal, setActivePortfolioModal] = useState<boolean>(false)
 
     const navigateToValue = useCallback((id: string) => {
         navigate('valueId')
@@ -32,7 +34,7 @@ export const App = React.memo(() => {
 
     return (
         <div className={'app'}>
-            <Header/>
+            <Header active={activePortfolioModal} setActive={setActivePortfolioModal}/>
             <div className={'app__main'}>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/values'}/>}/>
@@ -42,6 +44,9 @@ export const App = React.memo(() => {
                     <Route path={'/*'} element={<div>404</div>}/>
                 </Routes>
             </div>
+            {activePortfolioModal && <Modal active={activePortfolioModal} setActive={setActivePortfolioModal}>
+
+            </Modal>}
         </div>
     );
 })
