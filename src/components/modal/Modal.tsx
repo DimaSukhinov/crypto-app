@@ -1,13 +1,13 @@
 import React, {useCallback} from 'react';
 import './Modal.scss';
 
-type PortfolioPropsType = {
+type ModalPropsType = {
     active: boolean
     setActive: (active: boolean) => void
     children: React.ReactNode
 }
 
-export const Modal = React.memo((props: PortfolioPropsType) => {
+export const Modal = React.memo((props: ModalPropsType) => {
 
     const closeModal = useCallback(() => props.setActive(false), [props])
 

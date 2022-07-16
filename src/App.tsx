@@ -19,6 +19,8 @@ export const App = React.memo(() => {
 
     const [value, setValue] = useState<string>('')
     const [valueCount, setValueCount] = useState<number>(0)
+    const [currentValue, setCurrentValue] = useState<string>('')
+    const [activeAddModal, setActiveAddModal] = useState<boolean>(false)
 
     const onValueCountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => setValueCount(+e.currentTarget.value), [])
 
@@ -59,11 +61,17 @@ export const App = React.memo(() => {
                     <Route path={'/values'}
                            element={<Values valueCount={valueCount} onValueCountChange={onValueCountChange}
                                             values={values} navigateToValue={navigateToValue}
-                                            setValueCount={setValueCount}/>}/>
+                                            setValueCount={setValueCount} currentValue={currentValue}
+                                            activeAddModal={activeAddModal} setActiveAddModal={setActiveAddModal}
+                                            setCurrentValue={setCurrentValue}/>}
+                    />
                     <Route path={'/valueId'}
                            element={<Value values={values} value={value} navigateToValues={navigateToValues}
                                            valueCount={valueCount} onValueCountChange={onValueCountChange}
-                                           setValueCount={setValueCount}/>}/>
+                                           setValueCount={setValueCount} currentValue={currentValue}
+                                           activeAddModal={activeAddModal}
+                                           setActiveAddModal={setActiveAddModal} setCurrentValue={setCurrentValue}/>}
+                    />
                     <Route path={'/*'} element={<div>404</div>}/>
                 </Routes>
             </div>

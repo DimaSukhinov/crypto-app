@@ -11,10 +11,12 @@ export const portfolioReducer = (state: PortfolioType[] = initialState, action: 
                 price: action.price,
                 valueCount: action.valueCount
             }]
-            localStorage.setItem('portfolio', JSON.stringify(values));
+            localStorage.setItem('portfolio', JSON.stringify(values))
             return values
         case 'REMOVE-FROM-PORTFOLIO':
-            return state.filter(p => p.id !== action.id)
+            const filteredValues = state.filter(p => p.id !== action.id)
+            localStorage.setItem('portfolio', JSON.stringify(filteredValues))
+            return filteredValues
         default:
             return state
     }

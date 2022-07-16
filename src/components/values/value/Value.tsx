@@ -1,17 +1,20 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import './Value.scss';
 import {ValueType} from '../../../store/values-reducer';
-import {useDispatch} from 'react-redux';
-import {addToPortfolioAC} from '../../../store/portfolio-reducer';
 import {Chart} from '../../chart/Chart';
 import {cryptoAPI} from '../../../api/api';
+import {AddModal} from '../../modal/addModal/AddModal';
 
 type ValuePropsType = {
     value: string
     values: ValueType[]
+    currentValue: string
+    activeAddModal: boolean
     valueCount: number
     navigateToValues: () => void
+    setCurrentValue: (currentValue: string) => void
     setValueCount: (valueCount: number) => void
+    setActiveAddModal: (activeAddModal: boolean) => void
     onValueCountChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -22,7 +25,6 @@ export type GraphicDataType = {
 
 export const Value = React.memo((props: ValuePropsType) => {
 
-    const dispatch = useDispatch()
     const [data, setData] = useState<GraphicDataType[]>([])
 
     useEffect(() => {
@@ -33,51 +35,49 @@ export const Value = React.memo((props: ValuePropsType) => {
 
     const backToValuesPage = useCallback(() => props.navigateToValues(), [props])
 
-    const addToPortfolio = (id: string, name: string, price: string, valueCount: number) => () => {
-        dispatch(addToPortfolioAC(id, name, +price, valueCount))
-        props.setValueCount(0)
-    }
+    const openAddModal = useCallback((id: string) => (e: any) => {
+        e.stopPropagation()
+        props.setActiveAddModal(true)
+        props.setCurrentValue(id)
+    }, [props])
 
     return (
         <div className={'value'}>
             {props.values.map(v => v.id === props.value && <>
                 <div className={'value__header'}>
-                    <div className={'value__back'} onClick={backToValuesPage}>Back</div>
-                    <div className={'value__name'}>
+                    <div className={'value__header-back'} onClick={backToValuesPage}>Back</div>
+                    <div className={'value__header-name'}>
                         {v.name}
                     </div>
                 </div>
-                <div className={'value__description'}>
-                    <div className={'value__graphic'}>
+                <div className={'value__content'}>
+                    <div className={'value__content-graphic'}>
                         <Chart data={data}/>
                     </div>
-                    <div className={'value__about-container'}>
-                        <div className={'value__about'}>
-                            <div className={'value__about-item'}>
-                                Symbol: {v.symbol}
-                            </div>
-                            <div className={'value__about-item'}>
-                                Price: {+(+v.priceUsd).toFixed(2)} $
-                            </div>
-                            <div className={'value__about-item'}>
-                                Changes: <span style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
-                                {+(+v.changePercent24Hr).toFixed(2)}%</span>
-                            </div>
-                            <div className={'value__about-item'}>
-                                MarketCap: {+(+v.marketCapUsd).toFixed(2)} $
-                            </div>
+                    <div className={'value__content-about'}>
+                        <div className={'value__content-about-item'}>
+                            Symbol: {v.symbol}
                         </div>
-                        <div className={'value__add'}>
-                            <input type="number" onChange={props.onValueCountChange}/>
-                            Price: {(props.valueCount * +v.priceUsd).toFixed(2)} $
-                            <div className={'valueList__add'}
-                                 onClick={addToPortfolio(v.id, v.name, v.priceUsd, props.valueCount)}>
-                                Add
-                            </div>
+                        <div className={'value__content-about-item'}>
+                            Price: {+v.priceUsd > 1 ? +(+v.priceUsd).toFixed(2) : +(+v.priceUsd).toFixed(5)} $
+                        </div>
+                        <div className={'value__content-about-item'}>
+                            Changes: <span style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
+                                {+(+v.changePercent24Hr).toFixed(2)}%</span>
+                        </div>
+                        <div className={'value__content-about-item'}>
+                            MarketCap: {+(+v.marketCapUsd).toFixed(2)} $
+                        </div>
+                        <div className={'value__content-about-item values__value-add'} onClick={openAddModal(v.id)}>
+                            Add
                         </div>
                     </div>
                 </div>
             </>)}
+            <AddModal currentValue={props.currentValue} values={props.values} valueCount={props.valueCount}
+                      setActiveAddModal={props.setActiveAddModal} activeAddModal={props.activeAddModal}
+                      setValueCount={props.setValueCount} onValueCountChange={props.onValueCountChange}
+            />
         </div>
     );
 })

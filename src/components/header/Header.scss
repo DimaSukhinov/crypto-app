@@ -4,41 +4,41 @@
 
   &__container {
     display: flex;
-    max-width: 1200px;
+    max-width: 1150px;
     align-items: center;
     justify-content: space-around;
     height: 60px;
     margin: 0 auto;
-  }
 
-  &__popularValues {
-    display: flex;
+    &-popularValues {
+      display: flex;
 
-    & span:not(:last-child) {
-      margin-right: 40px;
+      & span:not(:last-child) {
+        margin-right: 40px;
+      }
+
+      &-item {
+        border: 1px solid #fff;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 5px 10px;
+        margin: 5px;
+
+        & span {
+          font-weight: 500;
+        }
+      }
     }
-  }
 
-  &__popularValues-item {
-    border: 1px solid #fff;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin: 5px;
+    &-portfolio-button {
+      border: 1px solid;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
 
-    & span {
-      font-weight: 500;
-    }
-  }
-
-  &__portfolio-button {
-    border: 1px solid;
-    border-radius: 10px;
-    padding: 10px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #fff;
+      &:hover {
+        background-color: #fff;
+      }
     }
   }
 
@@ -46,19 +46,31 @@
     display: flex;
     align-items: center;
     padding: 15px;
-  }
 
-  &__item {
-    margin-right: 60px;
-  }
+    &-item {
+      margin-right: 60px;
+    }
 
-  &__delete {
-    border: 1px solid;
-    padding: 0 8px;
+    &-name {
+      min-width: 130px;
+    }
 
-    &:hover {
-      background-color: #edeef0;
-      cursor: pointer;
+    &-valueCount {
+      min-width: 30px;
+    }
+    &-price {
+      min-width: 130px;
+    }
+
+    &-delete {
+      border: 1px solid;
+      border-radius: 100%;
+      padding: 0 8px;
+
+      &:hover {
+        background-color: #edeef0;
+        cursor: pointer;
+      }
     }
   }
 }

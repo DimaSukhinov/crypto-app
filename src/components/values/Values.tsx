@@ -1,24 +1,22 @@
 import React, {ChangeEvent, useCallback, useState} from 'react';
 import './Values.scss';
 import {ValueType} from '../../store/values-reducer';
-import {useDispatch} from 'react-redux';
-import {addToPortfolioAC} from '../../store/portfolio-reducer';
-import {Modal} from '../modal/Modal';
 import {Pagination} from '../pagination/Pagination';
+import {AddModal} from '../modal/addModal/AddModal';
 
 type ValueListPropsType = {
     values: ValueType[]
     navigateToValue: (id: string) => void
     valueCount: number
+    currentValue: string
+    activeAddModal: boolean
+    setCurrentValue: (currentValue: string) => void
     setValueCount: (valueCount: number) => void
+    setActiveAddModal: (activeAddModal: boolean) => void
     onValueCountChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Values = React.memo((props: ValueListPropsType) => {
-
-    const dispatch = useDispatch()
-    const [currentValue, setCurrentValue] = useState<string>('')
-    const [activeAddModal, setActiveAddModal] = useState<boolean>(false)
 
     const [currentPage, setCurrentPage] = useState<number>(1)
     const valuesPerPage: number = 14
@@ -33,58 +31,43 @@ export const Values = React.memo((props: ValueListPropsType) => {
     const openValuePage = useCallback((id: string) => () => props.navigateToValue(id), [props])
     const openAddModal = useCallback((id: string) => (e: any) => {
         e.stopPropagation()
-        setActiveAddModal(true)
-        setCurrentValue(id)
-    }, [])
-
-    const addToPortfolio = useCallback((id: string, name: string, price: string, valueCount: number) => () => {
-        dispatch(addToPortfolioAC(id, name, +price, valueCount))
-        setActiveAddModal(false)
-        props.setValueCount(0)
-    }, [dispatch, props])
+        props.setActiveAddModal(true)
+        props.setCurrentValue(id)
+    }, [props])
 
     return (
-        <div className="valueList">
-            <div className={'valueList__header'}>
-                <span>Rank</span>
-                <span>Symbol</span>
-                <span>Name</span>
-                <span>Price $</span>
-                <span>Changes</span>
-                <span>Add to portfolio</span>
+        <div className="values">
+            <div className={'values__header'}>
+                <span className={'values__value-rank'}>Rank</span>
+                <span className={'values__value-symbol'}>Symbol</span>
+                <span className={'values__value-name'}>Name</span>
+                <span className={'values__value-price'}>Price $</span>
+                <span className={'values__value-changes'}>Changes</span>
+                <span style={{minWidth: '70px'}}>Add</span>
             </div>
-            {currentPageValues.map(v => <div className={'valueList__value'} onClick={openValuePage(v.id)}>
-                <div className={'valueList__rank'}>
+            {currentPageValues.map(v => <div className={'values__value'} onClick={openValuePage(v.id)}>
+                <div className={'values__value-rank'}>
                     {v.rank}
                 </div>
-                <div className={'valueList__symbol'}>
+                <div className={'values__value-symbol'}>
                     {v.symbol}
                 </div>
-                <div className={'valueList__name'}>
+                <div className={'values__value-name'}>
                     {v.name}
                 </div>
-                <div className={'valueList__price'}>
-                    {+(+v.priceUsd).toFixed(2)} $
+                <div className={'values__value-price'}>
+                    {+v.priceUsd > 1 ? +(+v.priceUsd).toFixed(2) : +(+v.priceUsd).toFixed(5)} $
                 </div>
-                <div className={'valueList__changePercent'} style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
+                <div className={'values__value-changes'} style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
                     {+(+v.changePercent24Hr).toFixed(2)}%
                 </div>
-                <div className={'valueList__add'} onClick={openAddModal(v.id)}>
+                <div className={'values__value-add'} onClick={openAddModal(v.id)}>
                     Add
                 </div>
             </div>)}
-            {activeAddModal && <Modal active={activeAddModal} setActive={setActiveAddModal}>
-                {props.values.map(v => v.id === currentValue && <div className={'valueList__modal'}>
-                    <span className={'valueList__modal-item'}>{v.name}</span>
-                    <input type="number" onChange={props.onValueCountChange} className={'valueList__modal-item'}/>
-                    <span className={'valueList__modal-item'}>
-                        Price: {(props.valueCount * +v.priceUsd).toFixed(2)} $
-                    </span>
-                    <div onClick={addToPortfolio(v.id, v.name, v.priceUsd, props.valueCount)}
-                         className={'valueList__modal-item valueList__add'}>Add
-                    </div>
-                </div>)}
-            </Modal>}
+            <AddModal activeAddModal={props.activeAddModal} setActiveAddModal={props.setActiveAddModal} values={props.values}
+                      valueCount={props.valueCount} onValueCountChange={props.onValueCountChange}
+                      currentValue={props.currentValue} setValueCount={props.setValueCount}/>
             <Pagination valuesPerPage={valuesPerPage} totalValues={totalValues} changeCurrentPage={changeCurrentPage}
                         currentPage={currentPage}/>
         </div>

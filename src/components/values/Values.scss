@@ -1,4 +1,4 @@
-.valueList {
+.values{
 
   &__header {
     display: flex;
@@ -17,27 +17,36 @@
     &:hover {
       background-color: #edeef0;
     }
-  }
 
-  &__add {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    border: 1px solid;
-    border-radius: 15px;
-    padding: 5px 0;
-    cursor: pointer;
-  }
+    &-rank {
+      min-width: 50px;
+    }
 
-  &__modal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 300px;
-  }
+    &-symbol {
+      min-width: 100px;
+    }
 
-  &__modal-item {
-    margin: 10px;
+    &-name {
+      min-width: 160px;
+    }
+
+    &-price {
+      min-width: 130px;
+    }
+
+    &-changes {
+      min-width: 60px;
+    }
+
+    &-add {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      border: 1px solid;
+      border-radius: 15px;
+      padding: 5px 0;
+      cursor: pointer;
+    }
   }
 }
