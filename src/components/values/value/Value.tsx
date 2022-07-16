@@ -20,7 +20,7 @@ export const Value = React.memo((props: ValuePropsType) => {
     const backToValuesPage = useCallback(() => props.navigateToValues(), [props])
 
     const addToPortfolio = (id: string, name: string, price: string, valueCount: number) => () => {
-        dispatch(addToPortfolioAC(id, name, price, valueCount))
+        dispatch(addToPortfolioAC(id, name, +price, valueCount))
         props.setValueCount(0)
     }
 

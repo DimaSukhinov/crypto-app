@@ -27,7 +27,7 @@ export const Values = React.memo((props: ValueListPropsType) => {
     }, [])
 
     const addToPortfolio = useCallback((id: string, name: string, price: string, valueCount: number) => () => {
-        dispatch(addToPortfolioAC(id, name, price, valueCount))
+        dispatch(addToPortfolioAC(id, name, +price, valueCount))
         setActiveAddModal(false)
         props.setValueCount(0)
     }, [dispatch, props])

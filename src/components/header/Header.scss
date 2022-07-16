@@ -4,7 +4,7 @@
 
   &__container {
     display: flex;
-    max-width: 1100px;
+    max-width: 1000px;
     align-items: center;
     justify-content: space-around;
     height: 60px;
@@ -19,13 +19,33 @@
     }
   }
 
-  &__portfolio {
+  &__portfolio-button {
     border: 1px solid;
     padding: 10px;
     cursor: pointer;
 
     &:hover {
       background-color: #fff;
+    }
+  }
+
+  &__portfolio {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+
+  &__item {
+    margin-right: 60px;
+  }
+
+  &__delete {
+    border: 1px solid;
+    padding: 0 8px;
+
+    &:hover {
+      background-color: #edeef0;
+      cursor: pointer;
     }
   }
 }

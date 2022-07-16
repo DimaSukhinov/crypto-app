@@ -5,24 +5,4 @@
     margin: 0 auto;
     border: 1px solid;
   }
-
-  &__portfolioValue {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-  }
-
-  &__item {
-    margin-right: 60px;
-  }
-
-  &__delete {
-    border: 1px solid;
-    padding: 0 8px;
-
-    &:hover {
-      background-color: #edeef0;
-      cursor: pointer;
-    }
-  }
 }

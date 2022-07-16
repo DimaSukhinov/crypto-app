@@ -10,6 +10,7 @@ export const Header = React.memo(() => {
     const dispatch = useDispatch()
     const portfolio = useAppSelector((store) => store.portfolio)
     const [activePortfolioModal, setActivePortfolioModal] = useState<boolean>(false)
+    const wallet = portfolio.map(p => p.valueCount * p.price).reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
 
     const openPortfolio = useCallback(() => setActivePortfolioModal(true), [])
 
@@ -24,22 +25,24 @@ export const Header = React.memo(() => {
                     <span>second</span>
                     <span>third</span>
                 </div>
-                <div className={'header__portfolio'} onClick={openPortfolio}>
+                {wallet + ' $'}
+                <div className={'header__portfolio-button'} onClick={openPortfolio}>
                     Portfolio
                 </div>
             </div>
             {activePortfolioModal && <Modal active={activePortfolioModal} setActive={setActivePortfolioModal}>
-                {portfolio.map(v => <div className={'app__portfolioValue'}>
-                    <div className={'app__item'}>
+                {wallet + ' $'}
+                {portfolio.map(v => <div className={'header__portfolio'}>
+                    <div className={'header__item'}>
                         {v.name}
                     </div>
-                    <div className={'app__item'}>
+                    <div className={'header__item'}>
                         {v.valueCount}
                     </div>
-                    <div className={'app__item'}>
-                        {+(v.valueCount * +v.price).toFixed(2)} $
+                    <div className={'header__item'}>
+                        {(v.valueCount * v.price).toFixed(2)} $
                     </div>
-                    <div className={'app__delete'} onClick={removeValueFromPortfolio(v.id)}>
+                    <div className={'header__delete'} onClick={removeValueFromPortfolio(v.id)}>
                         x
                     </div>
                 </div>)}

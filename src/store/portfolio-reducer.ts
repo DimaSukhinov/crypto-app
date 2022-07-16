@@ -11,7 +11,7 @@ export const portfolioReducer = (state: PortfolioType[] = initialState, action: 
     }
 }
 
-export const addToPortfolioAC = (id: string, name: string, price: string, valueCount: number) => {
+export const addToPortfolioAC = (id: string, name: string, price: number, valueCount: number) => {
     return {type: 'ADD-TO-PORTFOLIO', id, name, price, valueCount} as const
 }
 export const removeFromPortfolioAC = (id: string) => {
@@ -23,6 +23,6 @@ type ActionsType = ReturnType<typeof addToPortfolioAC> | ReturnType<typeof remov
 export type PortfolioType = {
     id: string
     name: string
-    price: string
+    price: number
     valueCount: number
 }
