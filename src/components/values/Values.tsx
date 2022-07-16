@@ -4,6 +4,7 @@ import {ValueType} from '../../store/values-reducer';
 import {useDispatch} from 'react-redux';
 import {addToPortfolioAC} from '../../store/portfolio-reducer';
 import {Modal} from '../modal/Modal';
+import {Pagination} from '../pagination/Pagination';
 
 type ValueListPropsType = {
     values: ValueType[]
@@ -18,6 +19,16 @@ export const Values = React.memo((props: ValueListPropsType) => {
     const dispatch = useDispatch()
     const [currentValue, setCurrentValue] = useState<string>('')
     const [activeAddModal, setActiveAddModal] = useState<boolean>(false)
+
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const valuesPerPage: number = 14
+    const totalValues: number = props.values.length
+
+    const lastValueIndex = currentPage * valuesPerPage
+    const firstValueIndex = lastValueIndex - valuesPerPage
+    const currentPageValues = props.values.slice(firstValueIndex, lastValueIndex)
+
+    const changeCurrentPage = useCallback((page: number) => setCurrentPage(page), [])
 
     const openValuePage = useCallback((id: string) => () => props.navigateToValue(id), [props])
     const openAddModal = useCallback((id: string) => (e: any) => {
@@ -42,7 +53,7 @@ export const Values = React.memo((props: ValueListPropsType) => {
                 <span>Changes</span>
                 <span>Add to portfolio</span>
             </div>
-            {props.values.map(v => <div className={'valueList__value'} onClick={openValuePage(v.id)}>
+            {currentPageValues.map(v => <div className={'valueList__value'} onClick={openValuePage(v.id)}>
                 <div className={'valueList__rank'}>
                     {v.rank}
                 </div>
@@ -74,6 +85,8 @@ export const Values = React.memo((props: ValueListPropsType) => {
                     </div>
                 </div>)}
             </Modal>}
+            <Pagination valuesPerPage={valuesPerPage} totalValues={totalValues} changeCurrentPage={changeCurrentPage}
+                        currentPage={currentPage}/>
         </div>
     );
 })

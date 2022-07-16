@@ -1,0 +1,19 @@
+.pages {
+  margin: 20px 0;
+
+  &__page {
+    border: 1px solid;
+    border-radius: 100%;
+    padding: 5px 10px;
+    margin: 0 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #edeef0;
+    }
+
+    &-active {
+      background-color: #b6b6b9;
+    }
+  }
+}

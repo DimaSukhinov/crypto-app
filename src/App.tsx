@@ -8,13 +8,14 @@ import {cryptoAPI} from './api/api';
 import {useAppSelector} from './store/store';
 import {useDispatch} from 'react-redux';
 import {setValuesAC} from './store/values-reducer';
+import {setPortfolioAC} from './store/portfolio-reducer';
 
 export const App = React.memo(() => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const values = useAppSelector((store) => store.values)
-    const TopThreeValues = values.slice(0,3)
+    const TopThreeValues = values.slice(0, 3)
 
     const [value, setValue] = useState<string>('')
     const [valueCount, setValueCount] = useState<number>(0)
@@ -25,6 +26,11 @@ export const App = React.memo(() => {
         cryptoAPI.allValues().then((data) => {
             dispatch(setValuesAC(data.data.data))
         })
+
+        let portfolio = localStorage.getItem('portfolio')
+        if (portfolio !== null) {
+            dispatch(setPortfolioAC(JSON.parse(portfolio)))
+        }
 
         let value = sessionStorage.getItem('value')
         if (value) {

@@ -15,7 +15,7 @@ export const Header = React.memo((props: HeaderPropsType) => {
     const dispatch = useDispatch()
     const portfolio = useAppSelector((store) => store.portfolio)
     const [activePortfolioModal, setActivePortfolioModal] = useState<boolean>(false)
-    const wallet = portfolio.map(p => p.valueCount * p.price).reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
+    const wallet = portfolio.map(p => p!== null && p.valueCount * p.price).reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
 
     const openPortfolio = useCallback(() => setActivePortfolioModal(true), [])
 
