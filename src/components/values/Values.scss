@@ -1,5 +1,11 @@
 .valueList {
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+  }
 
   &__value {
     display: flex;

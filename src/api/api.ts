@@ -7,6 +7,9 @@ export const instance = axios.create({
 
 export const cryptoAPI = {
     allValues() {
-        return instance.get<{data: ValueType[]}>('assets')
+        return instance.get<{ data: ValueType[] }>('assets')
+    },
+    graphic(id: string) {
+        return instance.get(`assets/${id}/history?interval=h1`)
     },
 }

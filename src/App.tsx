@@ -14,6 +14,7 @@ export const App = React.memo(() => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const values = useAppSelector((store) => store.values)
+    const TopThreeValues = values.slice(0,3)
 
     const [value, setValue] = useState<string>('')
     const [valueCount, setValueCount] = useState<number>(0)
@@ -24,18 +25,28 @@ export const App = React.memo(() => {
         cryptoAPI.allValues().then((data) => {
             dispatch(setValuesAC(data.data.data))
         })
+
+        let value = sessionStorage.getItem('value')
+        if (value) {
+            let newValue = JSON.parse(value)
+            setValue(newValue)
+        }
     }, [])
 
     const navigateToValue = useCallback((id: string) => {
         navigate('valueId')
         setValue(id)
+        sessionStorage.setItem('value', JSON.stringify(id))
     }, [navigate])
 
-    const navigateToValues = useCallback(() => navigate('values'), [navigate])
+    const navigateToValues = useCallback(() => {
+        navigate('values')
+        sessionStorage.setItem('value', JSON.stringify(''))
+    }, [navigate])
 
     return (
         <div className={'app'}>
-            <Header/>
+            <Header TopThreeValues={TopThreeValues}/>
             <div className={'app__main'}>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/values'}/>}/>

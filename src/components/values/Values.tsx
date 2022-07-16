@@ -34,6 +34,14 @@ export const Values = React.memo((props: ValueListPropsType) => {
 
     return (
         <div className="valueList">
+            <div className={'valueList__header'}>
+                <span>Rank</span>
+                <span>Symbol</span>
+                <span>Name</span>
+                <span>Price $</span>
+                <span>Changes</span>
+                <span>Add to portfolio</span>
+            </div>
             {props.values.map(v => <div className={'valueList__value'} onClick={openValuePage(v.id)}>
                 <div className={'valueList__rank'}>
                     {v.rank}
@@ -47,7 +55,7 @@ export const Values = React.memo((props: ValueListPropsType) => {
                 <div className={'valueList__price'}>
                     {+(+v.priceUsd).toFixed(2)} $
                 </div>
-                <div className={'valueList__changePercent'}>
+                <div className={'valueList__changePercent'} style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
                     {+(+v.changePercent24Hr).toFixed(2)}%
                 </div>
                 <div className={'valueList__add'} onClick={openAddModal(v.id)}>
@@ -62,7 +70,7 @@ export const Values = React.memo((props: ValueListPropsType) => {
                         Price: {(props.valueCount * +v.priceUsd).toFixed(2)} $
                     </span>
                     <div onClick={addToPortfolio(v.id, v.name, v.priceUsd, props.valueCount)}
-                            className={'valueList__modal-item valueList__add'}>Add
+                         className={'valueList__modal-item valueList__add'}>Add
                     </div>
                 </div>)}
             </Modal>}

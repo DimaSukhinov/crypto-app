@@ -4,8 +4,13 @@ import {Modal} from '../modal/Modal';
 import {useAppSelector} from '../../store/store';
 import {removeFromPortfolioAC} from '../../store/portfolio-reducer';
 import {useDispatch} from 'react-redux';
+import {ValueType} from '../../store/values-reducer';
 
-export const Header = React.memo(() => {
+type HeaderPropsType = {
+    TopThreeValues: ValueType[]
+}
+
+export const Header = React.memo((props: HeaderPropsType) => {
 
     const dispatch = useDispatch()
     const portfolio = useAppSelector((store) => store.portfolio)
@@ -19,11 +24,11 @@ export const Header = React.memo(() => {
     return (
         <div className={'header'}>
             <div className={'header__container'}>
-                <input type="text"/>
                 <div className={'header__popularValues'}>
-                    <span>first</span>
-                    <span>second</span>
-                    <span>third</span>
+                    {props.TopThreeValues.map(v => <div className={'header__popularValues-item'}>
+                        <span>{v.symbol} </span>
+                        {(+v.priceUsd).toFixed(2)}$
+                    </div>)}
                 </div>
                 {wallet + ' $'}
                 <div className={'header__portfolio-button'} onClick={openPortfolio}>

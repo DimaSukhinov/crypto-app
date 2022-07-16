@@ -16,28 +16,33 @@
 
   &__description {
     display: flex;
+    flex-direction: column;
     height: 500px;
   }
 
   &__graphic {
-    border-right: 1px solid;
-    width: 600px;
+    margin: 20px 0;
+  }
+
+  &__about-container {
+    display: flex;
+    justify-content: space-around;
   }
 
   &__about {
-    padding: 90px 0 90px 0;
+    border: 1px solid;
   }
 
-  &__item {
+  &__about-item {
     padding: 10px;
   }
 
   &__add {
+    border: 1px solid;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border-top: 1px solid;
     width: 300px;
     height: 146px;
   }
