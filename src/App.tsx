@@ -15,7 +15,6 @@ export const App = React.memo(() => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const values = useAppSelector((store) => store.values)
-    const TopThreeValues = values.slice(0, 3)
 
     const [value, setValue] = useState<string>('')
     const [valueCount, setValueCount] = useState<number>(0)
@@ -54,7 +53,7 @@ export const App = React.memo(() => {
 
     return (
         <div className={'app'}>
-            <Header TopThreeValues={TopThreeValues}/>
+            <Header values={values}/>
             <div className={'app__main'}>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/values'}/>}/>

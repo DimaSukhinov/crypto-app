@@ -4,7 +4,7 @@
 
   &__container {
     display: flex;
-    max-width: 1150px;
+    max-width: 1070px;
     align-items: center;
     justify-content: space-around;
     height: 60px;
@@ -47,6 +47,16 @@
     align-items: center;
     padding: 15px;
 
+    &-price {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid;
+
+      &-item {
+        margin: 5px 0;
+      }
+    }
+
     &-item {
       margin-right: 60px;
     }
@@ -58,7 +68,7 @@
     &-valueCount {
       min-width: 30px;
     }
-    &-price {
+    &-priceUsd {
       min-width: 130px;
     }
 
