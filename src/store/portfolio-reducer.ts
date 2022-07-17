@@ -14,7 +14,7 @@ export const portfolioReducer = (state: PortfolioType[] = initialState, action: 
                     id: action.id,
                     name: action.name,
                     valueCount: action.valueCount + val.valueCount,
-                    price: action.price + val.price
+                    price: action.price
                 }
             }
             const values = [...newState, value]

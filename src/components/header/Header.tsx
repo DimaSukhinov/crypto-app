@@ -18,6 +18,7 @@ export const Header = React.memo((props: HeaderPropsType) => {
 
     const currentWalletValueArr = portfolio.map(p => props.values
         .map(v => v.id === p.id && +(p.valueCount * +v.priceUsd)).reduce((acc: any, num: any) => acc + num, 0))
+    console.log(currentWalletValueArr)
     const currentWalletValue = currentWalletValueArr.reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
     const originalWalletValue = portfolio.map(p => p !== null && p.valueCount * p.price).reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
     const walletDifference = currentWalletValue - originalWalletValue
