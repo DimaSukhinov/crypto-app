@@ -5,12 +5,19 @@ export const portfolioReducer = (state: PortfolioType[] = initialState, action: 
         case 'SET-PORTFOLIO':
             return action.portfolio
         case 'ADD-TO-PORTFOLIO':
-            const values = [...state, {
-                id: action.id,
-                name: action.name,
-                price: action.price,
-                valueCount: action.valueCount
-            }]
+            let value = {id: action.id, name: action.name, valueCount: action.valueCount, price: action.price}
+            const val = state.find(s => s.id === action.id)
+            let newState = state
+            if (val) {
+                newState = state.filter(p => p.id !== action.id)
+                value = {
+                    id: action.id,
+                    name: action.name,
+                    valueCount: action.valueCount + val.valueCount,
+                    price: action.price + val.price
+                }
+            }
+            const values = [...newState, value]
             localStorage.setItem('portfolio', JSON.stringify(values))
             return values
         case 'REMOVE-FROM-PORTFOLIO':

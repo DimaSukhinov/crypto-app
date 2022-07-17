@@ -4,13 +4,18 @@
     display: flex;
     padding: 10px;
     border-bottom: 1px solid;
+    justify-content: center;
+    position: relative;
 
     &-back {
       cursor: pointer;
-    }
+      position: absolute;
+      top: 0;
+      left: 0;
 
-    &-name {
-      margin-left: 350px;
+      &:hover {
+        background-color: #edeef0;
+      }
     }
   }
 
@@ -20,6 +25,15 @@
 
     &-graphic {
       margin: 20px 0;
+
+      &-item {
+        margin: 10px;
+        padding: 3px 8px;
+
+        &-active {
+          border-bottom: 1px solid #8884d8;
+        }
+      }
     }
 
     &-about {

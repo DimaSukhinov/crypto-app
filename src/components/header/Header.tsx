@@ -16,18 +16,12 @@ export const Header = React.memo((props: HeaderPropsType) => {
     const portfolio = useAppSelector((store) => store.portfolio)
     const [activePortfolioModal, setActivePortfolioModal] = useState<boolean>(false)
 
-
     const currentWalletValueArr = portfolio.map(p => props.values
         .map(v => v.id === p.id && +(p.valueCount * +v.priceUsd)).reduce((acc: any, num: any) => acc + num, 0))
-
     const currentWalletValue = currentWalletValueArr.reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
-
     const originalWalletValue = portfolio.map(p => p !== null && p.valueCount * p.price).reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
-
     const walletDifference = currentWalletValue - originalWalletValue
-
     const walletDifferencePercent = walletDifference / currentWalletValue
-
 
     const TopThreeValues = props.values.slice(0, 3)
 
@@ -56,7 +50,7 @@ export const Header = React.memo((props: HeaderPropsType) => {
             </div>
             {activePortfolioModal && <Modal active={activePortfolioModal} setActive={setActivePortfolioModal}>
                 <div className={'header__portfolio-price'}>
-                    <span className={'header__portfolio-price-item'}>Total spent: {originalWalletValue + ' $ '}</span>
+                    <span className={'header__portfolio-price-item'}>Total spent: {originalWalletValue + ' USD '}</span>
                     <span className={'header__portfolio-price-item'}>
                     Current price: {currentWalletValue + ' USD '}
                         {currentWalletValue > 0 && <span style={{color: walletDifference > 0 ? 'green' : 'red'}}>

@@ -18,6 +18,12 @@
       background-color: #edeef0;
     }
 
+    @media (max-width: 630px) {
+      &-name, &-changes {
+        display: none;
+      }
+    }
+
     &-rank {
       min-width: 50px;
     }

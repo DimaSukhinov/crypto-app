@@ -6,13 +6,17 @@ import {GraphicDataType} from '../values/value/Value';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 type ChartPropsType = {
+    chartValue: 'day' | '2days'
     data: GraphicDataType[]
 }
 
 export const Chart = React.memo((props: ChartPropsType) => {
 
+    let dayLabels = props.data.map(d => d.date.slice(11, 16))
+    let weekLabels = props.data.map(d => d.date.slice(0, 10) + ' - ' + d.date.slice(12, 16))
+
     return <Line width="360px" height="210px" data={{
-        labels: [...props.data.map(d => d.date.slice(11, 16))],
+        labels: props.chartValue === 'day' ? [...dayLabels] : [...weekLabels],
         datasets: [
             {
                 label: 'Usd',

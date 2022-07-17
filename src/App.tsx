@@ -41,7 +41,7 @@ export const App = React.memo(() => {
     }, [])
 
     const navigateToValue = useCallback((id: string) => {
-        navigate('valueId')
+        navigate('value')
         setValue(id)
         sessionStorage.setItem('value', JSON.stringify(id))
     }, [navigate])
@@ -64,7 +64,7 @@ export const App = React.memo(() => {
                                             activeAddModal={activeAddModal} setActiveAddModal={setActiveAddModal}
                                             setCurrentValue={setCurrentValue}/>}
                     />
-                    <Route path={'/valueId'}
+                    <Route path={'/value'}
                            element={<Value values={values} value={value} navigateToValues={navigateToValues}
                                            valueCount={valueCount} onValueCountChange={onValueCountChange}
                                            setValueCount={setValueCount} currentValue={currentValue}
