@@ -29,7 +29,7 @@ export const portfolioReducer = (state: PortfolioType[] = initialState, action: 
     }
 }
 
-export const setPortfolioAC = (portfolio: any) => {
+export const setPortfolioAC = (portfolio: PortfolioType[]) => {
     return {type: 'SET-PORTFOLIO', portfolio} as const
 }
 export const addToPortfolioAC = (id: string, name: string, price: number, valueCount: number) => {
