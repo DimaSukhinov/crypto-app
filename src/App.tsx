@@ -19,9 +19,14 @@ export const App = React.memo(() => {
     const [value, setValue] = useState<string>('')
     const [valueCount, setValueCount] = useState<number>(0)
     const [currentValue, setCurrentValue] = useState<string>('')
+    const [currentPage, setCurrentPage] = useState<number>(1)
     const [activeAddModal, setActiveAddModal] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false)
 
-    const onValueCountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => setValueCount(+e.currentTarget.value), [])
+    const onValueCountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setValueCount(+e.currentTarget.value)
+        setError(false)
+    }, [])
 
     useEffect(() => {
         cryptoAPI.allValues().then((data) => {
@@ -37,6 +42,12 @@ export const App = React.memo(() => {
         if (value) {
             let newValue = JSON.parse(value)
             setValue(newValue)
+        }
+
+        let page = sessionStorage.getItem('page')
+        if (page) {
+            let newValue = JSON.parse(page)
+            setCurrentPage(newValue)
         }
     }, [])
 
@@ -62,14 +73,16 @@ export const App = React.memo(() => {
                                             values={values} navigateToValue={navigateToValue}
                                             setValueCount={setValueCount} currentValue={currentValue}
                                             activeAddModal={activeAddModal} setActiveAddModal={setActiveAddModal}
-                                            setCurrentValue={setCurrentValue}/>}
+                                            setCurrentValue={setCurrentValue} error={error} setError={setError}
+                                            setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
                     />
                     <Route path={'/value'}
                            element={<Value values={values} value={value} navigateToValues={navigateToValues}
                                            valueCount={valueCount} onValueCountChange={onValueCountChange}
                                            setValueCount={setValueCount} currentValue={currentValue}
                                            activeAddModal={activeAddModal}
-                                           setActiveAddModal={setActiveAddModal} setCurrentValue={setCurrentValue}/>}
+                                           setActiveAddModal={setActiveAddModal} setCurrentValue={setCurrentValue}
+                                           error={error} setError={setError}/>}
                     />
                     <Route path={'/*'} element={<div>404</div>}/>
                 </Routes>

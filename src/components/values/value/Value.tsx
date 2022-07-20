@@ -11,6 +11,8 @@ type ValuePropsType = {
     currentValue: string
     activeAddModal: boolean
     valueCount: number
+    error: boolean
+    setError: (error: boolean) => void
     navigateToValues: () => void
     setCurrentValue: (currentValue: string) => void
     setValueCount: (valueCount: number) => void
@@ -42,6 +44,8 @@ export const Value = React.memo((props: ValuePropsType) => {
         e.stopPropagation()
         props.setActiveAddModal(true)
         props.setCurrentValue(id)
+        props.setError(false)
+        props.setValueCount(0)
     }, [props])
 
     const drawDayChart = useCallback(() => {
@@ -96,7 +100,7 @@ export const Value = React.memo((props: ValuePropsType) => {
             <AddModal currentValue={props.currentValue} values={props.values} valueCount={props.valueCount}
                       setActiveAddModal={props.setActiveAddModal} activeAddModal={props.activeAddModal}
                       setValueCount={props.setValueCount} onValueCountChange={props.onValueCountChange}
-            />
+                      setError={props.setError} error={props.error}/>
         </div>
     );
 })

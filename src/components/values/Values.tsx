@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import './Values.scss';
 import {ValueType} from '../../store/values-reducer';
 import {Pagination} from '../pagination/Pagination';
@@ -10,6 +10,10 @@ type ValueListPropsType = {
     valueCount: number
     currentValue: string
     activeAddModal: boolean
+    error: boolean
+    currentPage: number
+    setCurrentPage: (currentPage: number) => void
+    setError: (error: boolean) => void
     setCurrentValue: (currentValue: string) => void
     setValueCount: (valueCount: number) => void
     setActiveAddModal: (activeAddModal: boolean) => void
@@ -18,21 +22,26 @@ type ValueListPropsType = {
 
 export const Values = React.memo((props: ValueListPropsType) => {
 
-    const [currentPage, setCurrentPage] = useState<number>(1)
     const valuesPerPage: number = 14
     const totalValues: number = props.values.length
 
-    const lastValueIndex = currentPage * valuesPerPage
+    const lastValueIndex = props.currentPage * valuesPerPage
     const firstValueIndex = lastValueIndex - valuesPerPage
     const currentPageValues = props.values.slice(firstValueIndex, lastValueIndex)
 
-    const changeCurrentPage = useCallback((page: number) => setCurrentPage(page), [])
+    const changeCurrentPage = useCallback((page: number) => {
+        props.setCurrentPage(page)
+        sessionStorage.setItem('page', JSON.stringify(page))
+    }, [props])
 
     const openValuePage = useCallback((id: string) => () => props.navigateToValue(id), [props])
+
     const openAddModal = useCallback((id: string) => (e: any) => {
         e.stopPropagation()
         props.setActiveAddModal(true)
         props.setCurrentValue(id)
+        props.setError(false)
+        props.setValueCount(0)
     }, [props])
 
     return (
@@ -66,10 +75,10 @@ export const Values = React.memo((props: ValueListPropsType) => {
                 </div>
             </div>)}
             <AddModal activeAddModal={props.activeAddModal} setActiveAddModal={props.setActiveAddModal} values={props.values}
-                      valueCount={props.valueCount} onValueCountChange={props.onValueCountChange}
-                      currentValue={props.currentValue} setValueCount={props.setValueCount}/>
+                      valueCount={props.valueCount} onValueCountChange={props.onValueCountChange} error={props.error}
+                      currentValue={props.currentValue} setValueCount={props.setValueCount} setError={props.setError}/>
             <Pagination valuesPerPage={valuesPerPage} totalValues={totalValues} changeCurrentPage={changeCurrentPage}
-                        currentPage={currentPage}/>
+                        currentPage={props.currentPage}/>
         </div>
     );
 })

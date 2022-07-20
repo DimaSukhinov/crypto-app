@@ -12,8 +12,8 @@ export const Modal = React.memo((props: ModalPropsType) => {
     const closeModal = useCallback(() => props.setActive(false), [props])
 
     return (
-        <div className={'portfolio'} onClick={closeModal}>
-            <div className={'portfolio__content'} onClick={e => e.stopPropagation()}>
+        <div className={'reusableModal'} onClick={closeModal}>
+            <div className={'reusableModal__content'} onClick={e => e.stopPropagation()}>
                 {props.children}
             </div>
         </div>
