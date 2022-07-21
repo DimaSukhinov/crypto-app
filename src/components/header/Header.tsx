@@ -10,7 +10,7 @@ type HeaderPropsType = {
     values: ValueType[]
 }
 
-export const Header = React.memo((props: HeaderPropsType) => {
+export const Header = React.memo(({values}: HeaderPropsType) => {
 
     const dispatch = useDispatch()
     const portfolio = useAppSelector((store) => store.portfolio)
@@ -18,14 +18,14 @@ export const Header = React.memo((props: HeaderPropsType) => {
     const [confirmDeletionModal, setConfirmDeletionModal] = useState<boolean>(false)
     const [confirmDeletion, setConfirmDeletion] = useState<boolean>()
 
-    const currentWalletValueArr = portfolio.map(p => props.values
+    const currentWalletValueArr = portfolio.map(p => values
         .map(v => v.id === p.id && +(p.valueCount * +v.priceUsd)).reduce((acc: any, num: any) => acc + num, 0))
     const currentWalletValue = currentWalletValueArr.reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
     const originalWalletValue = portfolio.map(p => p !== null && p.valueCount * p.price).reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
     const walletDifference = currentWalletValue - originalWalletValue
     const walletDifferencePercent = walletDifference / currentWalletValue
 
-    const TopThreeValues = props.values.slice(0, 3)
+    const TopThreeValues = values.slice(0, 3)
 
     const openPortfolio = useCallback(() => setActivePortfolioModal(true), [])
 
@@ -37,7 +37,7 @@ export const Header = React.memo((props: HeaderPropsType) => {
         setConfirmDeletion(true)
         dispatch(removeFromPortfolioAC(id))
         setConfirmDeletionModal(false)
-    }, [])
+    }, [dispatch])
 
     const rejectValueDelete = useCallback(() => {
         setConfirmDeletion(false)
@@ -63,7 +63,7 @@ export const Header = React.memo((props: HeaderPropsType) => {
                     Portfolio
                 </div>
             </div>
-            {activePortfolioModal && <Modal active={activePortfolioModal} setActive={setActivePortfolioModal}>
+            {activePortfolioModal && <Modal setActive={setActivePortfolioModal}>
                 {portfolio.length > 0 ? <>
                     <div className={'header__portfolio-price'}>
                         <span
@@ -91,7 +91,7 @@ export const Header = React.memo((props: HeaderPropsType) => {
                             -
                         </div>
                         {confirmDeletionModal &&
-                            <Modal active={confirmDeletionModal} setActive={setConfirmDeletionModal}>
+                            <Modal setActive={setConfirmDeletionModal}>
                                 <span>Do you really want to delete {v.name}?</span>
                                 <div className={'header__portfolio-delete-modal'}>
                                     <div onClick={confirmValueDelete(v.id)}

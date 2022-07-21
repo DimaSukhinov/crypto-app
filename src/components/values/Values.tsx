@@ -20,29 +20,33 @@ type ValueListPropsType = {
     onValueCountChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Values = React.memo((props: ValueListPropsType) => {
+export const Values = React.memo(({
+                                      values, valueCount, onValueCountChange, currentValue, currentPage, error,
+                                      setValueCount, activeAddModal, setActiveAddModal, setError, setCurrentValue,
+                                      setCurrentPage, navigateToValue
+                                  }: ValueListPropsType) => {
 
     const valuesPerPage: number = 14
-    const totalValues: number = props.values.length
+    const totalValues: number = values.length
 
-    const lastValueIndex = props.currentPage * valuesPerPage
+    const lastValueIndex = currentPage * valuesPerPage
     const firstValueIndex = lastValueIndex - valuesPerPage
-    const currentPageValues = props.values.slice(firstValueIndex, lastValueIndex)
+    const currentPageValues = values.slice(firstValueIndex, lastValueIndex)
 
     const changeCurrentPage = useCallback((page: number) => {
-        props.setCurrentPage(page)
+        setCurrentPage(page)
         sessionStorage.setItem('page', JSON.stringify(page))
-    }, [props])
+    }, [setCurrentPage])
 
-    const openValuePage = useCallback((id: string) => () => props.navigateToValue(id), [props])
+    const openValuePage = useCallback((id: string) => () => navigateToValue(id), [navigateToValue])
 
     const openAddModal = useCallback((id: string) => (e: any) => {
         e.stopPropagation()
-        props.setActiveAddModal(true)
-        props.setCurrentValue(id)
-        props.setError(false)
-        props.setValueCount(0)
-    }, [props])
+        setActiveAddModal(true)
+        setCurrentValue(id)
+        setError(false)
+        setValueCount(0)
+    }, [setActiveAddModal, setCurrentValue, setError, setValueCount])
 
     return (
         <div className="values">
@@ -74,11 +78,12 @@ export const Values = React.memo((props: ValueListPropsType) => {
                     Add
                 </div>
             </div>)}
-            <AddModal activeAddModal={props.activeAddModal} setActiveAddModal={props.setActiveAddModal} values={props.values}
-                      valueCount={props.valueCount} onValueCountChange={props.onValueCountChange} error={props.error}
-                      currentValue={props.currentValue} setValueCount={props.setValueCount} setError={props.setError}/>
+            <AddModal activeAddModal={activeAddModal} setActiveAddModal={setActiveAddModal}
+                      values={values}
+                      valueCount={valueCount} onValueCountChange={onValueCountChange} error={error}
+                      currentValue={currentValue} setValueCount={setValueCount} setError={setError}/>
             <Pagination valuesPerPage={valuesPerPage} totalValues={totalValues} changeCurrentPage={changeCurrentPage}
-                        currentPage={props.currentPage}/>
+                        currentPage={currentPage}/>
         </div>
     );
 })

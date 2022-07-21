@@ -2,7 +2,7 @@ import React, {ChangeEvent, useCallback} from 'react';
 import './AddModal.scss';
 import {Modal} from '../Modal';
 import {ValueType} from '../../../store/values-reducer';
-import {addToPortfolioAC} from '../../../store/portfolio-reducer';
+import {addToPortfolioAC, PortfolioType} from '../../../store/portfolio-reducer';
 import {useDispatch} from 'react-redux';
 
 type AddModalPropsType = {
@@ -17,29 +17,33 @@ type AddModalPropsType = {
     onValueCountChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const AddModal = React.memo((props: AddModalPropsType) => {
+export const AddModal = React.memo(({
+                                        values, activeAddModal, setActiveAddModal, error, onValueCountChange,
+                                        setValueCount, currentValue, setError, valueCount
+                                    }: AddModalPropsType) => {
 
     const dispatch = useDispatch()
 
     const addToPortfolio = useCallback((id: string, name: string, price: string, valueCount: number) => () => {
         if (valueCount > 0) {
-            dispatch(addToPortfolioAC(id, name, +price, valueCount))
-            props.setActiveAddModal(false)
-            props.setValueCount(0)
-        } else props.setError(true)
-    }, [dispatch, props])
+            let value: PortfolioType = {id: id, name: name, price: +price, valueCount: valueCount}
+            dispatch(addToPortfolioAC(value))
+            setActiveAddModal(false)
+            setValueCount(0)
+        } else setError(true)
+    }, [dispatch, setActiveAddModal, setError, setValueCount])
 
     return (
         <>
-            {props.activeAddModal && <Modal active={props.activeAddModal} setActive={props.setActiveAddModal}>
-                {props.values.map(v => v.id === props.currentValue && <div className={'modal'}>
+            {activeAddModal && <Modal setActive={setActiveAddModal}>
+                {values.map(v => v.id === currentValue && <div className={'modal'}>
                     <span className={'modal__item'}>{v.name}</span>
-                    <input type="number" onChange={props.onValueCountChange} className={'modal__item'}/>
-                    {props.error && <div style={{color: 'red'}}>Incorrect value</div>}
+                    <input type="number" onChange={onValueCountChange} className={'modal__item'}/>
+                    {error && <div style={{color: 'red'}}>Incorrect value</div>}
                     <span className={'modal__item'}>
-                         Price: {props.valueCount > 0 && (props.valueCount * +v.priceUsd).toFixed(2) + '$'}
+                         Price: {valueCount > 0 && (valueCount * +v.priceUsd).toFixed(2) + '$'}
                     </span>
-                    <div onClick={addToPortfolio(v.id, v.name, v.priceUsd, props.valueCount)}
+                    <div onClick={addToPortfolio(v.id, v.name, v.priceUsd, valueCount)}
                          className={'modal__item values__value-add'}>Add
                     </div>
                 </div>)}

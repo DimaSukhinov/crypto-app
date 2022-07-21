@@ -1,21 +1,20 @@
 const initialState: PortfolioType[] = []
 
+export const SET_PORTFOLIO = 'SET-PORTFOLIO'
+export const ADD_TO_PORTFOLIO = 'ADD-TO-PORTFOLIO'
+export const REMOVE_FROM_PORTFOLIO = 'REMOVE-FROM-PORTFOLIO'
+
 export const portfolioReducer = (state: PortfolioType[] = initialState, action: ActionsType): PortfolioType[] => {
     switch (action.type) {
         case 'SET-PORTFOLIO':
             return action.portfolio
         case 'ADD-TO-PORTFOLIO':
-            let value = {id: action.id, name: action.name, valueCount: action.valueCount, price: action.price}
-            const val = state.find(s => s.id === action.id)
+            let value = action.portfolio
+            const val = state.find(s => s.id === value.id)
             let newState = state
             if (val) {
-                newState = state.filter(p => p.id !== action.id)
-                value = {
-                    id: action.id,
-                    name: action.name,
-                    valueCount: action.valueCount + val.valueCount,
-                    price: action.price
-                }
+                newState = state.filter(p => p.id !== value.id)
+                value = {...value, valueCount: value.valueCount + val.valueCount,}
             }
             const values = [...newState, value]
             localStorage.setItem('portfolio', JSON.stringify(values))
@@ -30,13 +29,13 @@ export const portfolioReducer = (state: PortfolioType[] = initialState, action: 
 }
 
 export const setPortfolioAC = (portfolio: PortfolioType[]) => {
-    return {type: 'SET-PORTFOLIO', portfolio} as const
+    return {type: SET_PORTFOLIO, portfolio} as const
 }
-export const addToPortfolioAC = (id: string, name: string, price: number, valueCount: number) => {
-    return {type: 'ADD-TO-PORTFOLIO', id, name, price, valueCount} as const
+export const addToPortfolioAC = (portfolio: PortfolioType) => {
+    return {type: ADD_TO_PORTFOLIO, portfolio} as const
 }
 export const removeFromPortfolioAC = (id: string) => {
-    return {type: 'REMOVE-FROM-PORTFOLIO', id} as const
+    return {type: REMOVE_FROM_PORTFOLIO, id} as const
 }
 
 type ActionsType =

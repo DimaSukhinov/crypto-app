@@ -10,13 +10,13 @@ type ChartPropsType = {
     data: GraphicDataType[]
 }
 
-export const Chart = React.memo((props: ChartPropsType) => {
+export const Chart = React.memo(({chartValue, data}: ChartPropsType) => {
 
-    let dayLabels = props.data.map(d => d.date.slice(11, 16))
-    let weekLabels = props.data.map(d => d.date.slice(0, 10) + ' - ' + d.date.slice(12, 16))
+    let dayLabels = data.map(d => d.date.slice(11, 16))
+    let weekLabels = data.map(d => d.date.slice(0, 10) + ' - ' + d.date.slice(12, 16))
 
     return <Line width="360px" height="210px" data={{
-        labels: props.chartValue === 'day' ? [...dayLabels] : [...weekLabels],
+        labels: chartValue === 'day' ? [...dayLabels] : [...weekLabels],
         datasets: [
             {
                 label: 'Usd',
@@ -24,7 +24,7 @@ export const Chart = React.memo((props: ChartPropsType) => {
                 backgroundColor: '#8d93ab',
                 borderColor: '#8884d8',
                 borderWidth: 2,
-                data: [...props.data.map(d => d.priceUsd)]
+                data: [...data.map(d => d.priceUsd)]
             }
         ]
     }}/>;

@@ -23,30 +23,35 @@ type ValuePropsType = {
 export type GraphicDataType = {
     date: string
     priceUsd: string
+    time: number
+    circulatingSupply: string
 }
 
-export const Value = React.memo((props: ValuePropsType) => {
+export const Value = React.memo(({
+                                     value, valueCount, onValueCountChange, setValueCount, currentValue, values, error,
+                                     setCurrentValue, navigateToValues, activeAddModal, setActiveAddModal, setError
+                                 }: ValuePropsType) => {
 
     const [data, setData] = useState<GraphicDataType[]>([])
     const [chartData, setChartData] = useState<GraphicDataType[]>([])
     const [chartValue, setChartValue] = useState<'day' | '2days'>('day')
 
     useEffect(() => {
-        cryptoAPI.graphic(props.value).then((data) => {
+        cryptoAPI.graphic(value).then((data) => {
             setData(data.data.data)
             setChartData(data.data.data.reverse().slice(0, 24).reverse())
         })
-    }, [props.value])
+    }, [value])
 
-    const backToValuesPage = useCallback(() => props.navigateToValues(), [props])
+    const backToValuesPage = useCallback(() => navigateToValues(), [navigateToValues])
 
     const openAddModal = useCallback((id: string) => (e: any) => {
         e.stopPropagation()
-        props.setActiveAddModal(true)
-        props.setCurrentValue(id)
-        props.setError(false)
-        props.setValueCount(0)
-    }, [props])
+        setActiveAddModal(true)
+        setCurrentValue(id)
+        setError(false)
+        setValueCount(0)
+    }, [setActiveAddModal, setCurrentValue, setError, setValueCount])
 
     const drawDayChart = useCallback(() => {
         setChartData(data.reverse().slice(0, 24).reverse())
@@ -60,7 +65,7 @@ export const Value = React.memo((props: ValuePropsType) => {
 
     return (
         <div className={'value'}>
-            {props.values.map(v => v.id === props.value && <>
+            {values.map(v => v.id === value && <>
                 <div className={'value__header'}>
                     <div className={'value__header-back'} onClick={backToValuesPage}>Go back</div>
                     <div className={'value__header-name'}>
@@ -97,10 +102,10 @@ export const Value = React.memo((props: ValuePropsType) => {
                     </div>
                 </div>
             </>)}
-            <AddModal currentValue={props.currentValue} values={props.values} valueCount={props.valueCount}
-                      setActiveAddModal={props.setActiveAddModal} activeAddModal={props.activeAddModal}
-                      setValueCount={props.setValueCount} onValueCountChange={props.onValueCountChange}
-                      setError={props.setError} error={props.error}/>
+            <AddModal currentValue={currentValue} values={values} valueCount={valueCount}
+                      setActiveAddModal={setActiveAddModal} activeAddModal={activeAddModal}
+                      setValueCount={setValueCount} onValueCountChange={onValueCountChange}
+                      setError={setError} error={error}/>
         </div>
     );
 })
