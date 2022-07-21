@@ -1,10 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import './Header.scss';
 import {Modal} from '../modal/Modal';
-import {useAppSelector} from '../../store/store';
 import {removeFromPortfolioAC} from '../../store/portfolio-reducer';
 import {useDispatch} from 'react-redux';
 import {ValueType} from '../../store/values-reducer';
+import {useAppSelector, useCurrentWalletValue} from '../../customHooks/CustomHooks';
 
 type HeaderPropsType = {
     values: ValueType[]
@@ -18,12 +18,7 @@ export const Header = React.memo(({values}: HeaderPropsType) => {
     const [confirmDeletionModal, setConfirmDeletionModal] = useState<boolean>(false)
     const [confirmDeletion, setConfirmDeletion] = useState<boolean>()
 
-    const currentWalletValueArr = portfolio.map(p => values
-        .map(v => v.id === p.id && +(p.valueCount * +v.priceUsd)).reduce((acc: any, num: any) => acc + num, 0))
-    const currentWalletValue = currentWalletValueArr.reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
-    const originalWalletValue = portfolio.map(p => p !== null && p.valueCount * p.price).reduce((acc: any, num: any) => acc + num, 0).toFixed(2)
-    const walletDifference = currentWalletValue - originalWalletValue
-    const walletDifferencePercent = walletDifference / currentWalletValue
+    const currentWalletValue = useCurrentWalletValue(portfolio, values)
 
     const TopThreeValues = values.slice(0, 3)
 
@@ -47,63 +42,51 @@ export const Header = React.memo(({values}: HeaderPropsType) => {
     return (
         <div className={'header'}>
             <div className={'header__container'}>
-                <div className={'header__container-popularValues'}>
-                    {TopThreeValues.map(v => <div className={'header__container-popularValues-item'}>
+                <div className={'header__popular-values'}>
+                    {TopThreeValues.map(v => <div className={'header__item'}>
                         <span>{v.symbol} </span>
                         {+v.priceUsd > 1 ? +(+v.priceUsd).toFixed(2) : +(+v.priceUsd).toFixed(5)}$
                     </div>)}
                 </div>
                 <span>
-                    {currentWalletValue + ' USD '}
-                    {currentWalletValue > 0 && <span style={{color: walletDifference > 0 ? 'green' : 'red'}}>
-                        {walletDifference.toFixed(2)} $ ({walletDifferencePercent.toFixed(4)} %)
-                    </span>}
+                    {currentWalletValue}
                 </span>
-                <div className={'header__container-portfolio-button'} onClick={openPortfolio}>
+                <div className={'header__portfolio-button'} onClick={openPortfolio}>
                     Portfolio
                 </div>
             </div>
             {activePortfolioModal && <Modal setActive={setActivePortfolioModal}>
                 {portfolio.length > 0 ? <>
-                    <div className={'header__portfolio-price'}>
-                        <span
-                            className={'header__portfolio-price-item'}>
-                            Total spent: {originalWalletValue + ' USD '}
-                        </span>
-                        <span className={'header__portfolio-price-item'}>
-                            Current price: {currentWalletValue + ' USD '}
-                            {currentWalletValue > 0 && <span style={{color: walletDifference > 0 ? 'green' : 'red'}}>
-                                {walletDifference.toFixed(2)} $ ({walletDifferencePercent.toFixed(4)} %)
-                            </span>}
-                        </span>
+                    <div className={'header__price'}>
+                        Current price: {currentWalletValue}
                     </div>
                     {portfolio.map(v => <div className={'header__portfolio'}>
-                        <div className={'header__portfolio-name header__portfolio-item'}>
+                        <div className={'header__name header__element'}>
                             {v.name}
                         </div>
-                        <div className={'header__portfolio-valueCount header__portfolio-item'}>
+                        <div className={'header__amount header__element'}>
                             {v.valueCount}
                         </div>
-                        <div className={'header__portfolio-priceUsd header__portfolio-item'}>
+                        <div className={'header__price-usd header__element'}>
                             {(v.valueCount * v.price).toFixed(2)} $
                         </div>
-                        <div className={'header__portfolio-delete'} onClick={removeValueFromPortfolio}>
+                        <div className={'header__delete-button'} onClick={removeValueFromPortfolio}>
                             -
                         </div>
                         {confirmDeletionModal &&
                             <Modal setActive={setConfirmDeletionModal}>
                                 <span>Do you really want to delete {v.name}?</span>
-                                <div className={'header__portfolio-delete-modal'}>
+                                <div className={'header__delete-modal'}>
                                     <div onClick={confirmValueDelete(v.id)}
-                                          className={'header__portfolio-delete-modal-item'}>Yes
+                                         className={'header__delete-modal-item'}>Yes
                                     </div>
-                                    <div onClick={rejectValueDelete} className={'header__portfolio-delete-modal-item'}>
+                                    <div onClick={rejectValueDelete} className={'header__delete-modal-item'}>
                                         No
                                     </div>
                                 </div>
                             </Modal>}
                     </div>)}
-                </> : <div className={'header__portfolio-empty'}>You don't have currency</div>}
+                </> : <div className={'header__empty-portfolio'}>You don't have currency</div>}
             </Modal>}
         </div>
     );

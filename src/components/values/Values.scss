@@ -1,10 +1,24 @@
-.values{
+.values {
 
   &__header {
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
     border-bottom: 1px solid;
+  }
+
+  &__rank, &__changes, &__add-header {
+    min-width: 65px;
+  }
+
+  &__name, &__price, &__symbol {
+    min-width: 130px;
+  }
+
+  @media (max-width: 630px) {
+    &__name, &__changes {
+      display: none;
+    }
   }
 
   &__value {
@@ -17,42 +31,16 @@
     &:hover {
       background-color: #edeef0;
     }
+  }
 
-    @media (max-width: 630px) {
-      &-name, &-changes {
-        display: none;
-      }
-    }
-
-    &-rank {
-      min-width: 50px;
-    }
-
-    &-symbol {
-      min-width: 100px;
-    }
-
-    &-name {
-      min-width: 160px;
-    }
-
-    &-price {
-      min-width: 130px;
-    }
-
-    &-changes {
-      min-width: 60px;
-    }
-
-    &-add {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 70px;
-      border: 1px solid;
-      border-radius: 15px;
-      padding: 5px 0;
-      cursor: pointer;
-    }
+  &__add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 5px 0;
+    cursor: pointer;
   }
 }

@@ -51,30 +51,30 @@ export const Values = React.memo(({
     return (
         <div className="values">
             <div className={'values__header'}>
-                <span className={'values__value-rank'}>Rank</span>
-                <span className={'values__value-symbol'}>Symbol</span>
-                <span className={'values__value-name'}>Name</span>
-                <span className={'values__value-price'}>Price $</span>
-                <span className={'values__value-changes'}>Changes</span>
-                <span style={{minWidth: '70px'}}>Add</span>
+                <span className={'values__rank'}>Rank</span>
+                <span className={'values__symbol'}>Symbol</span>
+                <span className={'values__name'}>Name</span>
+                <span className={'values__price'}>Price $</span>
+                <span className={'values__changes'}>Changes</span>
+                <span className={'values__add-header'}>Add</span>
             </div>
             {currentPageValues.map(v => <div className={'values__value'} onClick={openValuePage(v.id)}>
-                <div className={'values__value-rank'}>
+                <div className={'values__rank'}>
                     {v.rank}
                 </div>
-                <div className={'values__value-symbol'}>
+                <div className={'values__symbol'}>
                     {v.symbol}
                 </div>
-                <div className={'values__value-name'}>
+                <div className={'values__name'}>
                     {v.name}
                 </div>
-                <div className={'values__value-price'}>
+                <div className={'values__price'}>
                     {+v.priceUsd > 1 ? +(+v.priceUsd).toFixed(2) : +(+v.priceUsd).toFixed(5)} $
                 </div>
-                <div className={'values__value-changes'} style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
+                <div className={'values__changes'} style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
                     {+(+v.changePercent24Hr).toFixed(2)}%
                 </div>
-                <div className={'values__value-add'} onClick={openAddModal(v.id)}>
+                <div className={'values__add-button'} onClick={openAddModal(v.id)}>
                     Add
                 </div>
             </div>)}

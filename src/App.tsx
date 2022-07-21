@@ -5,10 +5,10 @@ import {Navigate, Route, Routes, useNavigate} from 'react-router-dom';
 import {Values} from './components/values/Values';
 import {Value} from './components/values/value/Value';
 import {cryptoAPI} from './api/api';
-import {useAppSelector} from './store/store';
 import {useDispatch} from 'react-redux';
 import {setValuesAC} from './store/values-reducer';
 import {setPortfolioAC} from './store/portfolio-reducer';
+import {useAppSelector} from './customHooks/CustomHooks';
 
 export const App = React.memo(() => {
 

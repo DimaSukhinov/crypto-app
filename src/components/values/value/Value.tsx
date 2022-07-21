@@ -68,44 +68,42 @@ export const Value = React.memo(({
             {values.map(v => v.id === value && <>
                 <div className={'value__header'}>
                     <div className={'value__header-back'} onClick={backToValuesPage}>Go back</div>
-                    <div className={'value__header-name'}>
-                        {v.name}
-                    </div>
+                    <div>{v.name}</div>
                 </div>
                 <div className={'value__content'}>
-                    <div className={'value__content-graphic'}>
+                    <div className={'value__graphic'}>
                         <Chart data={chartData} chartValue={chartValue}/>
                         <span
-                            className={`${chartValue === 'day' && 'value__content-graphic-item-active'} value__content-graphic-item`}
+                            className={`${chartValue === 'day' && 'value__graphic-item-active'} value__graphic-item`}
                             onClick={drawDayChart}>24Hr</span>
                         <span
-                            className={`${chartValue === '2days' && 'value__content-graphic-item-active'} value__content-graphic-item`}
+                            className={`${chartValue === '2days' && 'value__graphic-item-active'} value__graphic-item`}
                             onClick={drawWeekChart}>48hr</span>
                     </div>
-                    <div className={'value__content-about'}>
-                        <div className={'value__content-about-item'}>
+                    <div>
+                        <div className={'value__item'}>
                             Symbol: {v.symbol}
                         </div>
-                        <div className={'value__content-about-item'}>
+                        <div className={'value__item'}>
                             Price: {+v.priceUsd > 1 ? +(+v.priceUsd).toFixed(2) : +(+v.priceUsd).toFixed(5)} $
                         </div>
-                        <div className={'value__content-about-item'}>
+                        <div className={'value__item'}>
                             Changes: <span style={{color: +v.changePercent24Hr > 0 ? 'green' : 'red'}}>
                                 {+(+v.changePercent24Hr).toFixed(2)}%</span>
                         </div>
-                        <div className={'value__content-about-item'}>
+                        <div className={'value__item'}>
                             MarketCap: {+(+v.marketCapUsd).toFixed(2)} $
                         </div>
-                        <div className={'value__content-about-item values__value-add'} onClick={openAddModal(v.id)}>
+                        <div className={'value__item values__add-button'} onClick={openAddModal(v.id)}>
                             Add
                         </div>
                     </div>
                 </div>
             </>)}
-            <AddModal currentValue={currentValue} values={values} valueCount={valueCount}
-                      setActiveAddModal={setActiveAddModal} activeAddModal={activeAddModal}
+            <AddModal currentValue={currentValue} values={values} valueCount={valueCount} setError={setError}
+                      setActiveAddModal={setActiveAddModal} activeAddModal={activeAddModal} error={error}
                       setValueCount={setValueCount} onValueCountChange={onValueCountChange}
-                      setError={setError} error={error}/>
+            />
         </div>
     );
 })

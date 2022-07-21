@@ -44,7 +44,7 @@ export const AddModal = React.memo(({
                          Price: {valueCount > 0 && (valueCount * +v.priceUsd).toFixed(2) + '$'}
                     </span>
                     <div onClick={addToPortfolio(v.id, v.name, v.priceUsd, valueCount)}
-                         className={'modal__item values__value-add'}>Add
+                         className={'modal__item values__add-button'}>Add
                     </div>
                 </div>)}
             </Modal>}
