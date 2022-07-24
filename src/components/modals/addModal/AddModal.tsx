@@ -4,25 +4,25 @@ import {Modal} from '../Modal';
 import {ValueType} from '../../../store/values-reducer';
 import {addToPortfolioAC, PortfolioType} from '../../../store/portfolio-reducer';
 import {useDispatch} from 'react-redux';
+import {Button} from '../../common/button/Button';
+import {useOpenAddModal} from '../../../hooks/UseOpenAddModal';
 
 type AddModalPropsType = {
     values: ValueType[]
-    activeAddModal: boolean
-    currentValue: string
-    valueCount: number
-    error: boolean
-    setError: (error: boolean) => void
-    setValueCount: (valueCount: number) => void
-    setActiveAddModal: (activeAddModal: boolean) => void
-    onValueCountChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const AddModal = React.memo(({
-                                        values, activeAddModal, setActiveAddModal, error, onValueCountChange,
-                                        setValueCount, currentValue, setError, valueCount
-                                    }: AddModalPropsType) => {
+export const AddModal = React.memo(({values}: AddModalPropsType) => {
 
     const dispatch = useDispatch()
+    const {
+        setValueCount, setActiveAddModal, setError,
+        activeAddModal, valueCount, error, currentValue
+    } = useOpenAddModal()
+
+    const onValueCountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setValueCount(+e.currentTarget.value)
+        setError(false)
+    }, [setError, setValueCount])
 
     const addToPortfolio = useCallback((id: string, name: string, price: string, valueCount: number) => () => {
         if (valueCount > 0) {
@@ -43,9 +43,9 @@ export const AddModal = React.memo(({
                     <span className={'modal__item'}>
                          Price: {valueCount > 0 && (valueCount * +v.priceUsd).toFixed(2) + '$'}
                     </span>
-                    <div onClick={addToPortfolio(v.id, v.name, v.priceUsd, valueCount)}
-                         className={'modal__item values__add-button'}>Add
-                    </div>
+                    <Button onClickHandler={addToPortfolio(v.id, v.name, v.priceUsd, valueCount)}>
+                        Add
+                    </Button>
                 </div>)}
             </Modal>}
         </>

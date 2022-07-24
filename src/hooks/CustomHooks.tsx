@@ -4,6 +4,8 @@ import {PortfolioType} from '../store/portfolio-reducer';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import {AppRootStateType} from '../store/store';
 
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
 export const useCurrentWalletValue = (portfolio: PortfolioType[], values: ValueType[]) => {
 
     const currentWalletValueArr = portfolio.map(p => values
@@ -21,4 +23,14 @@ export const useCurrentWalletValue = (portfolio: PortfolioType[], values: ValueT
     </>
 }
 
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+export const usePaginationValues = (values: ValueType[], currentPage: number) => {
+
+    const valuesPerPage: number = 14
+    const totalValues: number = values.length
+
+    const lastValueIndex = currentPage * valuesPerPage
+    const firstValueIndex = lastValueIndex - valuesPerPage
+    const currentPageValues = values.slice(firstValueIndex, lastValueIndex)
+
+    return {currentPageValues, valuesPerPage, totalValues}
+}

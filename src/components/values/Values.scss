@@ -20,27 +20,4 @@
       display: none;
     }
   }
-
-  &__value {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #edeef0;
-    }
-  }
-
-  &__add-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    border: 1px solid;
-    border-radius: 15px;
-    padding: 5px 0;
-    cursor: pointer;
-  }
 }

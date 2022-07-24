@@ -1,0 +1,28 @@
+.values-list {
+
+  &__rank, &__changes {
+    min-width: 65px;
+  }
+
+  &__name, &__price, &__symbol {
+    min-width: 130px;
+  }
+
+  @media (max-width: 630px) {
+    &__name, &__changes {
+      display: none;
+    }
+  }
+
+  &__value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #edeef0;
+    }
+  }
+}

@@ -1,23 +1,15 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './Value.scss';
 import {ValueType} from '../../../store/values-reducer';
 import {Chart} from '../../chart/Chart';
 import {cryptoAPI} from '../../../api/api';
-import {AddModal} from '../../modal/addModal/AddModal';
+import {Button} from '../../common/button/Button';
+import {useOpenAddModal} from '../../../hooks/UseOpenAddModal';
 
 type ValuePropsType = {
     value: string
     values: ValueType[]
-    currentValue: string
-    activeAddModal: boolean
-    valueCount: number
-    error: boolean
-    setError: (error: boolean) => void
     navigateToValues: () => void
-    setCurrentValue: (currentValue: string) => void
-    setValueCount: (valueCount: number) => void
-    setActiveAddModal: (activeAddModal: boolean) => void
-    onValueCountChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export type GraphicDataType = {
@@ -27,10 +19,9 @@ export type GraphicDataType = {
     circulatingSupply: string
 }
 
-export const Value = React.memo(({
-                                     value, valueCount, onValueCountChange, setValueCount, currentValue, values, error,
-                                     setCurrentValue, navigateToValues, activeAddModal, setActiveAddModal, setError
-                                 }: ValuePropsType) => {
+export const Value = React.memo(({value, values, navigateToValues}: ValuePropsType) => {
+
+    const {openAddModal} = useOpenAddModal()
 
     const [data, setData] = useState<GraphicDataType[]>([])
     const [chartData, setChartData] = useState<GraphicDataType[]>([])
@@ -45,16 +36,10 @@ export const Value = React.memo(({
 
     const backToValuesPage = useCallback(() => navigateToValues(), [navigateToValues])
 
-    const openAddModal = useCallback((id: string) => (e: any) => {
-        e.stopPropagation()
-        setActiveAddModal(true)
-        setCurrentValue(id)
-        setError(false)
-        setValueCount(0)
-    }, [setActiveAddModal, setCurrentValue, setError, setValueCount])
+    const onOpenAddModal = useCallback((id: string) => () => openAddModal(id), [openAddModal])
 
     const drawDayChart = useCallback(() => {
-        setChartData(data.reverse().slice(0, 24).reverse())
+        setChartData(data.reverse().slice(0, 24))
         setChartValue('day')
     }, [data])
 
@@ -73,9 +58,8 @@ export const Value = React.memo(({
                 <div className={'value__content'}>
                     <div className={'value__graphic'}>
                         <Chart data={chartData} chartValue={chartValue}/>
-                        <span
-                            className={`${chartValue === 'day' && 'value__graphic-item-active'} value__graphic-item`}
-                            onClick={drawDayChart}>24Hr</span>
+                        <span className={`${chartValue === 'day' && 'value__graphic-item-active'} value__graphic-item`}
+                              onClick={drawDayChart}>24Hr</span>
                         <span
                             className={`${chartValue === '2days' && 'value__graphic-item-active'} value__graphic-item`}
                             onClick={drawWeekChart}>48hr</span>
@@ -94,16 +78,10 @@ export const Value = React.memo(({
                         <div className={'value__item'}>
                             MarketCap: {+(+v.marketCapUsd).toFixed(2)} $
                         </div>
-                        <div className={'value__item values__add-button'} onClick={openAddModal(v.id)}>
-                            Add
-                        </div>
+                        <Button onClickHandler={onOpenAddModal(v.id)}>Add</Button>
                     </div>
                 </div>
             </>)}
-            <AddModal currentValue={currentValue} values={values} valueCount={valueCount} setError={setError}
-                      setActiveAddModal={setActiveAddModal} activeAddModal={activeAddModal} error={error}
-                      setValueCount={setValueCount} onValueCountChange={onValueCountChange}
-            />
         </div>
     );
 })

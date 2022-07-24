@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './App.scss';
 import {Header} from './components/header/Header';
 import {Navigate, Route, Routes, useNavigate} from 'react-router-dom';
@@ -8,7 +8,8 @@ import {cryptoAPI} from './api/api';
 import {useDispatch} from 'react-redux';
 import {setValuesAC} from './store/values-reducer';
 import {setPortfolioAC} from './store/portfolio-reducer';
-import {useAppSelector} from './customHooks/CustomHooks';
+import {useAppSelector} from './hooks/CustomHooks';
+import {AddModal} from './components/modals/addModal/AddModal';
 
 export const App = React.memo(() => {
 
@@ -17,16 +18,6 @@ export const App = React.memo(() => {
     const values = useAppSelector((store) => store.values)
 
     const [value, setValue] = useState<string>('')
-    const [valueCount, setValueCount] = useState<number>(0)
-    const [currentValue, setCurrentValue] = useState<string>('')
-    const [currentPage, setCurrentPage] = useState<number>(1)
-    const [activeAddModal, setActiveAddModal] = useState<boolean>(false)
-    const [error, setError] = useState<boolean>(false)
-
-    const onValueCountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        setValueCount(+e.currentTarget.value)
-        setError(false)
-    }, [])
 
     useEffect(() => {
         cryptoAPI.allValues().then((data) => {
@@ -42,12 +33,6 @@ export const App = React.memo(() => {
         if (value) {
             let newValue = JSON.parse(value)
             setValue(newValue)
-        }
-
-        let page = sessionStorage.getItem('page')
-        if (page) {
-            let newValue = JSON.parse(page)
-            setCurrentPage(newValue)
         }
     }, [])
 
@@ -69,24 +54,15 @@ export const App = React.memo(() => {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/values'}/>}/>
                     <Route path={'/values'}
-                           element={<Values valueCount={valueCount} onValueCountChange={onValueCountChange}
-                                            values={values} navigateToValue={navigateToValue}
-                                            setValueCount={setValueCount} currentValue={currentValue}
-                                            activeAddModal={activeAddModal} setActiveAddModal={setActiveAddModal}
-                                            setCurrentValue={setCurrentValue} error={error} setError={setError}
-                                            setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
+                           element={<Values values={values} navigateToValue={navigateToValue}/>}
                     />
                     <Route path={'/value'}
-                           element={<Value values={values} value={value} navigateToValues={navigateToValues}
-                                           valueCount={valueCount} onValueCountChange={onValueCountChange}
-                                           setValueCount={setValueCount} currentValue={currentValue}
-                                           activeAddModal={activeAddModal}
-                                           setActiveAddModal={setActiveAddModal} setCurrentValue={setCurrentValue}
-                                           error={error} setError={setError}/>}
+                           element={<Value values={values} value={value} navigateToValues={navigateToValues}/>}
                     />
                     <Route path={'/*'} element={<div>404</div>}/>
                 </Routes>
             </div>
+            <AddModal values={values}/>
         </div>
     );
 })
