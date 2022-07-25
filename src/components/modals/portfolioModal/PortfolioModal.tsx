@@ -39,8 +39,11 @@ export const PortfolioModal = React.memo(({
         setConfirmDeletionModal(false)
     }, [])
 
+    const closePortfolioModal = useCallback(() => setActivePortfolioModal(false), [setActivePortfolioModal])
+    const closeConfirmDeletionModal = useCallback(() => setActivePortfolioModal(false), [setActivePortfolioModal])
+
     return <>
-        {activePortfolioModal && <Modal setActive={setActivePortfolioModal}>
+        {activePortfolioModal && <Modal closeModal={closePortfolioModal}>
             {portfolio.length > 0
                 ? <div className={'portfolio'}>
                     <div className={'portfolio__price'}>
@@ -60,7 +63,7 @@ export const PortfolioModal = React.memo(({
                             -
                         </div>
                         {confirmDeletionModal &&
-                            <Modal setActive={setConfirmDeletionModal}>
+                            <Modal closeModal={closeConfirmDeletionModal}>
                                 <span>Do you really want to delete {v.name}?</span>
                                 <div className={'portfolio__delete-modal'}>
                                     <Button onClickHandler={confirmValueDelete(v.id)}>Yes</Button>

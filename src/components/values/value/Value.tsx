@@ -1,15 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import './Value.scss';
 import {ValueType} from '../../../store/values-reducer';
 import {Chart} from '../../chart/Chart';
-import {cryptoAPI} from '../../../api/api';
 import {Button} from '../../common/button/Button';
-import {useOpenAddModal} from '../../../hooks/UseOpenAddModal';
+import {useDrawChart} from '../../../hooks/UseDrawChart';
 
 type ValuePropsType = {
     value: string
     values: ValueType[]
     navigateToValues: () => void
+    openAddModal: (id: string) => void
 }
 
 export type GraphicDataType = {
@@ -19,34 +19,12 @@ export type GraphicDataType = {
     circulatingSupply: string
 }
 
-export const Value = React.memo(({value, values, navigateToValues}: ValuePropsType) => {
+export const Value = React.memo(({value, values, navigateToValues, openAddModal}: ValuePropsType) => {
 
-    const {openAddModal} = useOpenAddModal()
-
-    const [data, setData] = useState<GraphicDataType[]>([])
-    const [chartData, setChartData] = useState<GraphicDataType[]>([])
-    const [chartValue, setChartValue] = useState<'day' | '2days'>('day')
-
-    useEffect(() => {
-        cryptoAPI.graphic(value).then((data) => {
-            setData(data.data.data)
-            setChartData(data.data.data.reverse().slice(0, 24).reverse())
-        })
-    }, [value])
+    const {chartData, chartValue, data, drawChart} = useDrawChart(value)
 
     const backToValuesPage = useCallback(() => navigateToValues(), [navigateToValues])
-
     const onOpenAddModal = useCallback((id: string) => () => openAddModal(id), [openAddModal])
-
-    const drawDayChart = useCallback(() => {
-        setChartData(data.reverse().slice(0, 24))
-        setChartValue('day')
-    }, [data])
-
-    const drawWeekChart = useCallback(() => {
-        setChartData(data.reverse().slice(0, 48))
-        setChartValue('2days')
-    }, [data])
 
     return (
         <div className={'value'}>
@@ -59,10 +37,10 @@ export const Value = React.memo(({value, values, navigateToValues}: ValuePropsTy
                     <div className={'value__graphic'}>
                         <Chart data={chartData} chartValue={chartValue}/>
                         <span className={`${chartValue === 'day' && 'value__graphic-item-active'} value__graphic-item`}
-                              onClick={drawDayChart}>24Hr</span>
+                              onClick={drawChart(data.reverse().slice(0, 24), 'day')}>24Hr</span>
                         <span
                             className={`${chartValue === '2days' && 'value__graphic-item-active'} value__graphic-item`}
-                            onClick={drawWeekChart}>48hr</span>
+                            onClick={drawChart(data.reverse().slice(0, 48), '2days')}>48hr</span>
                     </div>
                     <div>
                         <div className={'value__item'}>

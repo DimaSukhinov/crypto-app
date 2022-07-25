@@ -2,16 +2,14 @@ import React, {useCallback} from 'react';
 import './ValuesList.scss';
 import {ValueType} from '../../../store/values-reducer';
 import {Button} from '../../common/button/Button';
-import {useOpenAddModal} from '../../../hooks/UseOpenAddModal';
 
 type ValueListPropsType = {
     currentPageValues: ValueType[]
     navigateToValue: (id: string) => void
+    openAddModal: (id: string) => void
 }
 
-export const ValuesList = React.memo(({navigateToValue, currentPageValues}: ValueListPropsType) => {
-
-    const {openAddModal} = useOpenAddModal()
+export const ValuesList = React.memo(({navigateToValue, currentPageValues, openAddModal}: ValueListPropsType) => {
 
     const openValuePage = useCallback((id: string) => () => navigateToValue(id), [navigateToValue])
 

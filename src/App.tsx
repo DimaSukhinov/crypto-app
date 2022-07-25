@@ -10,6 +10,7 @@ import {setValuesAC} from './store/values-reducer';
 import {setPortfolioAC} from './store/portfolio-reducer';
 import {useAppSelector} from './hooks/CustomHooks';
 import {AddModal} from './components/modals/addModal/AddModal';
+import {useAddModal} from './hooks/UseAddModal';
 
 export const App = React.memo(() => {
 
@@ -17,7 +18,15 @@ export const App = React.memo(() => {
     const navigate = useNavigate()
     const values = useAppSelector((store) => store.values)
 
+    const [currentValue, setCurrentValue] = useState<string>('')
+    const [valueCount, setValueCount] = useState<number>(0)
+    const [activeAddModal, setActiveAddModal] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false)
     const [value, setValue] = useState<string>('')
+
+    const {
+        openAddModal, closeModal, onValueCountChange, addToPortfolio
+    } = useAddModal(setActiveAddModal, setCurrentValue, setError, setValueCount)
 
     useEffect(() => {
         cryptoAPI.allValues().then((data) => {
@@ -54,15 +63,19 @@ export const App = React.memo(() => {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/values'}/>}/>
                     <Route path={'/values'}
-                           element={<Values values={values} navigateToValue={navigateToValue}/>}
+                           element={<Values values={values} navigateToValue={navigateToValue}
+                                            openAddModal={openAddModal}/>}
                     />
                     <Route path={'/value'}
-                           element={<Value values={values} value={value} navigateToValues={navigateToValues}/>}
+                           element={<Value values={values} value={value} navigateToValues={navigateToValues}
+                                           openAddModal={openAddModal}/>}
                     />
                     <Route path={'/*'} element={<div>404</div>}/>
                 </Routes>
             </div>
-            <AddModal values={values}/>
+            <AddModal values={values} activeAddModal={activeAddModal} closeModal={closeModal}
+                      currentValue={currentValue} valueCount={valueCount}
+                      onValueCountChange={onValueCountChange} error={error} addToPortfolio={addToPortfolio}/>
         </div>
     );
 })
