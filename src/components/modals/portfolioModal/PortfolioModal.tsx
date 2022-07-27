@@ -24,9 +24,7 @@ export const PortfolioModal = React.memo(({
 
     const currentWalletValue = useCurrentWalletValue(portfolio, values)
 
-    const removeValueFromPortfolio = useCallback(() => {
-        setConfirmDeletionModal(true)
-    }, [])
+    const removeValueFromPortfolio = useCallback(() => setConfirmDeletionModal(true), [])
 
     const confirmValueDelete = useCallback((id: string) => () => {
         setConfirmDeletion(true)

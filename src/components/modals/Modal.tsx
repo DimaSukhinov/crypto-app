@@ -2,7 +2,7 @@ import React from 'react';
 import './Modal.scss';
 
 type ModalPropsType = {
-    closeModal: () => void
+    closeModal?: () => void
     children: React.ReactNode
 }
 

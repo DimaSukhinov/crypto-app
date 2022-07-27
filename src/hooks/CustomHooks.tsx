@@ -17,7 +17,7 @@ export const useCurrentWalletValue = (portfolio: PortfolioType[], values: ValueT
 
     return <>
         {currentWalletValue + ' USD '}
-        {currentWalletValue > 0 && <span style={{color: walletDifference > 0 ? 'green' : 'red'}}>
+        {currentWalletValue > 0 && <span style={{color: walletDifference > 0 ? '#0abd0a' : '#cb2424'}}>
             {walletDifference.toFixed(2)} $ ({walletDifferencePercent.toFixed(4)} %)
         </span>}
     </>
