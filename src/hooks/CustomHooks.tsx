@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ValueType} from '../store/values-reducer';
 import {PortfolioType} from '../store/portfolio-reducer';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import {AppRootStateType} from '../store/store';
 
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
+export const useSnackbar = () => {
+
+    const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
+    const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success')
+    const [snackbarMessage, setSnackbarMessage] = useState<string>('This is a success message!')
+
+    return {openSnackbar, setOpenSnackbar, snackbarMessage, setSnackbarMessage, snackbarSeverity, setSnackbarSeverity}
+}
 
 export const useCurrentWalletValue = (portfolio: PortfolioType[], values: ValueType[]) => {
 

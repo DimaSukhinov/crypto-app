@@ -13,9 +13,7 @@ type ValueListPropsType = {
 }
 
 export const MaterialValuesList = React.memo(({
-                                                  navigateToValue,
-                                                  currentPageValues,
-                                                  openAddModal
+                                                  navigateToValue, currentPageValues, openAddModal
                                               }: ValueListPropsType) => {
 
     const openValuePage = useCallback((id: string) => () => navigateToValue(id), [navigateToValue])

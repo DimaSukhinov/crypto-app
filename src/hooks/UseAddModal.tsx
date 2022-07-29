@@ -2,7 +2,6 @@ import {ChangeEvent, useCallback} from 'react';
 import {addToPortfolioAC, PortfolioType} from '../store/portfolio-reducer';
 import {useDispatch} from 'react-redux';
 
-
 export const useAddModal = (
     setActiveAddModal: (activeAddModal: boolean) => void,
     setCurrentValue: (currentValue: string) => void,

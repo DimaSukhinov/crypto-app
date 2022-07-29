@@ -1,10 +1,11 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {Modal} from '../Modal';
 import {ValueType} from '../../../store/values-reducer';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import {useSnackbar} from '../../../hooks/CustomHooks';
 
 type AddModalPropsType = {
     values: ValueType[]

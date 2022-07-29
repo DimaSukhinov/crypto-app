@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import './Value.scss';
 import {ValueType} from '../../../store/values-reducer';
 import {Chart} from '../../chart/Chart';
@@ -23,14 +23,11 @@ export const Value = React.memo(({value, values, navigateToValues, openAddModal}
 
     const {chartData, chartValue, data, drawChart} = useDrawChart(value)
 
-    const backToValuesPage = useCallback(() => navigateToValues(), [navigateToValues])
-    const onOpenAddModal = useCallback((id: string) => () => openAddModal(id), [openAddModal])
-
     return (
         <div className={'value'}>
             {values.map(v => v.id === value && <>
                 <div className={'value__header'}>
-                    <div className={'value__header-back'} onClick={backToValuesPage}>Go back</div>
+                    <div className={'value__header-back'} onClick={navigateToValues}>Go back</div>
                     <div>{v.name}</div>
                 </div>
                 <div className={'value__content'}>
@@ -56,7 +53,7 @@ export const Value = React.memo(({value, values, navigateToValues, openAddModal}
                         <div className={'value__item'}>
                             MarketCap: {+(+v.marketCapUsd).toFixed(2)} $
                         </div>
-                        <Button onClickHandler={onOpenAddModal(v.id)}>Add</Button>
+                        <Button onClickHandler={() => openAddModal(v.id)}>Add</Button>
                     </div>
                 </div>
             </>)}

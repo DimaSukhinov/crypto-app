@@ -5,16 +5,10 @@ import {Header} from './components/header/Header';
 import {Values} from './components/values/Values';
 import {Value} from './components/values/value/Value';
 import {AddModal} from './components/modals/addModal/AddModal';
-import {cryptoAPI} from './api/api';
 import {useDispatch} from 'react-redux';
-import {setValuesAC} from './store/values-reducer';
-import {setPortfolioAC} from './store/portfolio-reducer';
+import {setValuesTC} from './store/values-reducer';
 import {useAppSelector} from './hooks/CustomHooks';
 import {useAddModal} from './hooks/UseAddModal';
-import {MaterialHeader} from './components/header/MaterialHeader';
-import {MaterialValues} from './components/values/MaterialValues';
-import {MaterialValue} from './components/values/value/MaterialValue';
-import {MaterialAddModal} from './components/modals/addModal/MaterialAddModal';
 
 export const App = React.memo(() => {
 
@@ -33,20 +27,8 @@ export const App = React.memo(() => {
     } = useAddModal(setActiveAddModal, setCurrentValue, setError, setValueCount)
 
     useEffect(() => {
-        cryptoAPI.allValues().then((data) => {
-            dispatch(setValuesAC(data.data.data))
-        })
-
-        let portfolio = localStorage.getItem('portfolio')
-        if (portfolio !== null) {
-            dispatch(setPortfolioAC(JSON.parse(portfolio)))
-        }
-
-        let value = sessionStorage.getItem('value')
-        if (value) {
-            let newValue = JSON.parse(value)
-            setValue(newValue)
-        }
+        // @ts-ignore
+        dispatch(setValuesTC(setValue))
     }, [])
 
     const navigateToValue = useCallback((id: string) => {
@@ -62,22 +44,22 @@ export const App = React.memo(() => {
 
     return (
         <div className={'app'}>
-            <MaterialHeader values={values}/>
+            <Header values={values}/>
             <div className={'app__main'}>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/values'}/>}/>
                     <Route path={'/values'}
-                           element={<MaterialValues values={values} navigateToValue={navigateToValue}
+                           element={<Values values={values} navigateToValue={navigateToValue}
                                                     openAddModal={openAddModal}/>}
                     />
                     <Route path={'/value'}
-                           element={<MaterialValue values={values} value={value} navigateToValues={navigateToValues}
+                           element={<Value values={values} value={value} navigateToValues={navigateToValues}
                                                    openAddModal={openAddModal}/>}
                     />
                     <Route path={'/*'} element={<>404</>}/>
                 </Routes>
             </div>
-            <MaterialAddModal values={values} activeAddModal={activeAddModal} closeModal={closeModal}
+            <AddModal values={values} activeAddModal={activeAddModal} closeModal={closeModal}
                       currentValue={currentValue} valueCount={valueCount}
                       onValueCountChange={onValueCountChange} error={error} addToPortfolio={addToPortfolio}
             />
