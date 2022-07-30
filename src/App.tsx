@@ -7,8 +7,8 @@ import {Value} from './components/values/value/Value';
 import {AddModal} from './components/modals/addModal/AddModal';
 import {useDispatch} from 'react-redux';
 import {setValuesTC} from './store/values-reducer';
-import {useAppSelector} from './hooks/CustomHooks';
 import {useAddModal} from './hooks/UseAddModal';
+import {useAppSelector} from './hooks/CustomHooks';
 
 export const App = React.memo(() => {
 

@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {ValueType} from '../../store/values-reducer';
 import {Pagination} from '../pagination/Pagination';
 import {ValuesList} from './valuesList/ValuesList';
-import {usePaginationValues} from '../../hooks/CustomHooks';
+import {usePaginationValues} from '../../hooks/UsePaginationValues';
 
 type ValuesPropsType = {
     values: ValueType[]

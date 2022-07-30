@@ -1,8 +1,8 @@
 import {
     addToPortfolioAC, portfolioReducer, PortfolioType,
     removeFromPortfolioAC, setPortfolioAC
-} from '../store/portfolio-reducer';
-import {setValuesAC, valuesReducer, ValueType} from '../store/values-reducer';
+} from './portfolio-reducer';
+import {setValuesAC, valuesReducer, ValueType} from './values-reducer';
 
 test('correct values should be set', () => {
     const startState: ValueType[] = []

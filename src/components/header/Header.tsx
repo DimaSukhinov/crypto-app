@@ -1,8 +1,9 @@
 import React, {useCallback, useState} from 'react';
 import './Header.scss';
 import {ValueType} from '../../store/values-reducer';
-import {useAppSelector, useCurrentWalletValue} from '../../hooks/CustomHooks';
+import {useCurrentWalletValue} from '../../hooks/UseCurrentWalletValue';
 import {PortfolioModal} from '../modals/portfolioModal/PortfolioModal';
+import {useAppSelector} from '../../hooks/CustomHooks';
 
 type HeaderPropsType = {
     values: ValueType[]
@@ -35,7 +36,7 @@ export const Header = React.memo(({values}: HeaderPropsType) => {
                     Portfolio
                 </div>
             </div>
-            <PortfolioModal values={values} activePortfolioModal={activePortfolioModal}
+            <PortfolioModal activePortfolioModal={activePortfolioModal} currentWalletValue={currentWalletValue}
                             setActivePortfolioModal={setActivePortfolioModal}/>
         </div>
     );
