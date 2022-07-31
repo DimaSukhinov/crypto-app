@@ -24,7 +24,7 @@ export const Value = React.memo(({value, values, navigateToValues, openAddModal}
     const {chartData, chartValue, data, drawChart} = useDrawChart(value)
 
     return (
-        <div className={'value'}>
+        <div className={'value'} data-testid={'value-page'}>
             {values.map(v => v.id === value && <>
                 <div className={'value__header'}>
                     <div className={'value__header-back'} onClick={navigateToValues}>Go back</div>

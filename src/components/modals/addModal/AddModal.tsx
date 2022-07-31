@@ -21,9 +21,9 @@ export const AddModal = React.memo(({
                                     }: AddModalPropsType) => {
 
     return (
-        <>
+        <div data-testid={'add-modal'}>
             {activeAddModal && <Modal closeModal={closeModal}>
-                {values.map(v => v.id === currentValue && <div className={'modal'}>
+                {values.map(v => v.id === currentValue && <div key={v.id} className={'modal'}>
                     <span className={'modal__item'}>{v.name}</span>
                     <input type="number" onChange={onValueCountChange} className={'modal__item'}/>
                     {error && <div style={{color: 'red'}}>Incorrect value</div>}
@@ -35,6 +35,6 @@ export const AddModal = React.memo(({
                     </Button>
                 </div>)}
             </Modal>}
-        </>
+        </div>
     );
 })

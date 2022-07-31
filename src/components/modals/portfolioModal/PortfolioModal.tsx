@@ -37,18 +37,20 @@ export const PortfolioModal = React.memo(({
     const rejectValueDelete = useCallback(() => setConfirmDeletionModal(false), [])
 
     return <>
-        {activePortfolioModal && <Modal closeModal={closePortfolioModal}>
-            {portfolio.length > 0
-                ? <div className={'portfolio'}>
-                    <div className={'portfolio__price'}>
-                        Current price: {currentWalletValue}
+        {activePortfolioModal && <div data-testid={'portfolio-modal'}>
+            <Modal closeModal={closePortfolioModal}>
+                {portfolio.length > 0
+                    ? <div className={'portfolio'}>
+                        <div className={'portfolio__price'}>
+                            Current price: {currentWalletValue}
+                        </div>
+                        <PortfolioValue portfolio={portfolio} removeValueFromPortfolio={removeValueFromPortfolio}/>
+                        {confirmDeletionModal &&
+                            <ConfirmDeletionModal valueForDelete={valueForDelete} confirm={confirmValueDelete}
+                                                  reject={rejectValueDelete}/>}
                     </div>
-                    <PortfolioValue portfolio={portfolio} removeValueFromPortfolio={removeValueFromPortfolio}/>
-                    {confirmDeletionModal &&
-                        <ConfirmDeletionModal valueForDelete={valueForDelete} confirm={confirmValueDelete}
-                                              reject={rejectValueDelete}/>}
-                </div>
-                : <div className={'portfolio__empty-portfolio'}>You don't have currency</div>}
-        </Modal>}
+                    : <div className={'portfolio__empty-portfolio'}>You don't have currency</div>}
+            </Modal>
+        </div>}
     </>
 })

@@ -16,9 +16,9 @@ export const ValuesList = React.memo(({navigateToValue, currentPageValues, openA
     const onOpenAddModal = useCallback((id: string) => () => openAddModal(id), [openAddModal])
 
     return (
-        <div className="values-list">
+        <div className="values-list" data-testid={'values-list'}>
             {
-                currentPageValues.map(v => <div className={'values-list__value'} onClick={openValuePage(v.id)}>
+                currentPageValues.map(v => <div key={v.name} className={'values-list__value'} onClick={openValuePage(v.id)} data-testid={'value-list-elem'}>
                     <div className={'values-list__rank'}>
                         {v.rank}
                     </div>

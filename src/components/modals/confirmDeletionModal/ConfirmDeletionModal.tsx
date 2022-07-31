@@ -11,11 +11,13 @@ type PortfolioModalPropsType = {
 
 export const ConfirmDeletionModal = React.memo(({valueForDelete, confirm, reject}: PortfolioModalPropsType) => {
 
-    return <Modal>
-        <span>Do you really want to delete {valueForDelete}?</span>
-        <div className={'deletionModal'}>
-            <Button onClickHandler={confirm}>Yes</Button>
-            <Button onClickHandler={reject}>No</Button>
-        </div>
-    </Modal>
+    return <div data-testid={'confirm-deletion-modal'}>
+        <Modal>
+            <span>Do you really want to delete {valueForDelete}?</span>
+            <div className={'deletionModal'}>
+                <Button onClickHandler={confirm}>Yes</Button>
+                <Button onClickHandler={reject}>No</Button>
+            </div>
+        </Modal>
+    </div>
 })

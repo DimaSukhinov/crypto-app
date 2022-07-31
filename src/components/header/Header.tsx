@@ -21,7 +21,7 @@ export const Header = React.memo(({values}: HeaderPropsType) => {
     const openPortfolio = useCallback(() => setActivePortfolioModal(true), [])
 
     return (
-        <div className={'header'}>
+        <div className={'header'} data-testid={'header'}>
             <div className={'header__container'}>
                 <div className={'header__popular-values'}>
                     {TopThreeValues.map(v => <div className={'header__item'}>
@@ -32,7 +32,7 @@ export const Header = React.memo(({values}: HeaderPropsType) => {
                 <span>
                     {currentWalletValue}
                 </span>
-                <div className={'header__portfolio-button'} onClick={openPortfolio}>
+                <div className={'header__portfolio-button'} data-testid={'portfolio-button'} onClick={openPortfolio}>
                     Portfolio
                 </div>
             </div>

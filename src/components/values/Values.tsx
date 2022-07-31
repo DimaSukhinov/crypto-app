@@ -29,11 +29,11 @@ export const Values = React.memo(({values, navigateToValue, openAddModal}: Value
     }, [setCurrentPage])
 
     return (
-        <>
+        <div data-testid={'values-page'}>
             <ValuesList currentPageValues={currentPageValues} navigateToValue={navigateToValue}
                         openAddModal={openAddModal}/>
             <Pagination valuesPerPage={valuesPerPage} totalValues={totalValues}
                         changeCurrentPage={changeCurrentPage} currentPage={currentPage}/>
-        </>
+        </div>
     );
 })

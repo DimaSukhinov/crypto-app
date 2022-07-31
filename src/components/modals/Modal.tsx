@@ -9,7 +9,7 @@ type ModalPropsType = {
 export const Modal = React.memo(({closeModal, children}: ModalPropsType) => {
 
     return (
-        <div className={'reusableModal'} onClick={closeModal}>
+        <div className={'reusableModal'} onClick={closeModal} data-testid={'space-around-modal'}>
             <div className={'reusableModal__content'} onClick={e => e.stopPropagation()}>
                 {children}
             </div>

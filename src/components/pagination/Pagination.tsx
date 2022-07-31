@@ -21,8 +21,9 @@ export const Pagination = React.memo(({
     const changePage = useCallback((page: number) => () => changeCurrentPage(page), [changeCurrentPage])
 
     return (
-        <div className={'pages'}>
-            {pages.map(p => <span className={currentPage === p ? 'pages__page pages__page-active' : 'pages__page'}
+        <div className={'pages'} data-testid={'pagination'}>
+            {pages.map(p => <span key={p} data-testid={'pagination-elem'}
+                                  className={currentPage === p ? 'pages__page pages__page-active' : 'pages__page'}
                                   onClick={changePage(p)}>{p}</span>)}
         </div>
     );

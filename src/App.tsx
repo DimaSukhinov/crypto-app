@@ -6,9 +6,10 @@ import {Values} from './components/values/Values';
 import {Value} from './components/values/value/Value';
 import {AddModal} from './components/modals/addModal/AddModal';
 import {useDispatch} from 'react-redux';
-import {setValuesTC} from './store/values-reducer';
+import {setValuesTC, ValueType} from './store/values-reducer';
 import {useAddModal} from './hooks/UseAddModal';
 import {useAppSelector} from './hooks/CustomHooks';
+import axios from 'axios';
 
 export const App = React.memo(() => {
 
@@ -32,7 +33,7 @@ export const App = React.memo(() => {
     }, [])
 
     const navigateToValue = useCallback((id: string) => {
-        navigate('value')
+        navigate(`values/${id}`)
         setValue(id)
         sessionStorage.setItem('value', JSON.stringify(id))
     }, [navigate])
@@ -50,13 +51,13 @@ export const App = React.memo(() => {
                     <Route path={'/'} element={<Navigate to={'/values'}/>}/>
                     <Route path={'/values'}
                            element={<Values values={values} navigateToValue={navigateToValue}
-                                                    openAddModal={openAddModal}/>}
+                                            openAddModal={openAddModal}/>}
                     />
-                    <Route path={'/value'}
+                    <Route path={`/values/:id`}
                            element={<Value values={values} value={value} navigateToValues={navigateToValues}
-                                                   openAddModal={openAddModal}/>}
+                                           openAddModal={openAddModal}/>}
                     />
-                    <Route path={'/*'} element={<>404</>}/>
+                    <Route path={'/*'} element={<div data-testid={'error-page'}>404</div>}/>
                 </Routes>
             </div>
             <AddModal values={values} activeAddModal={activeAddModal} closeModal={closeModal}

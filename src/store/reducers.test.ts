@@ -42,7 +42,7 @@ test('correct values should be set to portfolio from localStorage', () => {
 
     expect(endState.length).toBe(3);
     expect(endState[0].name).toBe('newValue');
-    expect(endState[2].name).toBe('newValue3');
+    expect(endState[2].valueCount).toBe(333);
 });
 
 test('correct value should be added to portfolio', () => {
