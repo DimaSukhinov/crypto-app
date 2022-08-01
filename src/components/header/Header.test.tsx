@@ -2,29 +2,29 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router-dom';
-import {store} from '../../store/store';
 import {Header} from './Header';
 import userEvent from '@testing-library/user-event';
+import {testStore, values} from '../../store/TestStore';
 
 describe('Header', () => {
 
     test('renders current price', () => {
-        render(<MemoryRouter>
-            <Provider store={store}>
-                <Header values={[]}/>
+        render(
+            <Provider store={testStore}>
+                <Header values={values}/>
             </Provider>
-        </MemoryRouter>)
+        )
 
         expect(screen.getByText(/usd/i)).toBeInTheDocument() // expected that price rendered
+        expect(screen.getAllByText(/btc/i)[0]).toBeInTheDocument()
     });
 
     test('portfolio opened', () => {
-        render(<MemoryRouter>
-            <Provider store={store}>
-                <Header values={[]}/>
+        render(
+            <Provider store={testStore}>
+                <Header values={values}/>
             </Provider>
-        </MemoryRouter>)
+        )
 
         const button = screen.getByTestId('portfolio-button')
 

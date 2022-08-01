@@ -2,9 +2,6 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import {render, screen} from '@testing-library/react';
 import {AddModal} from './AddModal';
-import {Provider} from 'react-redux';
-import {store} from '../../../store/store';
-import {MemoryRouter} from 'react-router-dom';
 
 describe('Add modal', () => {
 
@@ -17,13 +14,11 @@ describe('Add modal', () => {
     const currentValue = 'bitcoin'
 
     test('without error', () => {
-        render(<MemoryRouter>
-            <Provider store={store}>
-                <AddModal closeModal={() => {}} values={[value]} activeAddModal={true} valueCount={0}
-                          addToPortfolio={(id: string, name: string, price: string, valueCount: number) => () => {}}
-                          error={false} onValueCountChange={() => {}} currentValue={currentValue}/>
-            </Provider>
-        </MemoryRouter>)
+        render(
+            <AddModal closeModal={jest.fn()} values={[value]} activeAddModal={true} valueCount={0} error={false}
+                      addToPortfolio={jest.fn()} onValueCountChange={jest.fn()} currentValue={currentValue}
+            />
+        )
 
         expect(screen.getByTestId('add-modal')).toBeInTheDocument()
         expect(screen.getByTestId('add-modal')).toMatchSnapshot()
@@ -34,13 +29,11 @@ describe('Add modal', () => {
     });
 
     test('with error', () => {
-        render(<MemoryRouter>
-            <Provider store={store}>
-                <AddModal closeModal={() => {}} values={[value]} activeAddModal={true} valueCount={0}
-                          addToPortfolio={(id: string, name: string, price: string, valueCount: number) => () => {}}
-                          error={true} onValueCountChange={() => {}} currentValue={currentValue}/>
-            </Provider>
-        </MemoryRouter>)
+        render(
+            <AddModal closeModal={jest.fn()} values={[value]} activeAddModal={true} currentValue={currentValue}
+                      addToPortfolio={jest.fn()} error={true} onValueCountChange={jest.fn()} valueCount={0}
+            />
+        )
 
         expect(screen.getByTestId('add-modal')).toBeInTheDocument()
         expect(screen.getByTestId('add-modal')).toMatchSnapshot()

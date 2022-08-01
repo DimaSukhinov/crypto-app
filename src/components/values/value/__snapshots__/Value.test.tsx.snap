@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Values list renders values list components 1`] = `
+<div
+  class="value"
+  data-testid="value-page"
+>
+  <div>
+    <div
+      class="value__header"
+    >
+      <div
+        class="value__header-back"
+      >
+        Go back
+      </div>
+      <div>
+        Bitcoin
+      </div>
+    </div>
+    <div
+      class="value__content"
+    >
+      <div
+        class="value__graphic"
+      >
+        <canvas
+          height="210px"
+          role="img"
+          width="360px"
+        />
+        <span
+          class="value__graphic-item-active value__graphic-item"
+        >
+          24Hr
+        </span>
+        <span
+          class="false value__graphic-item"
+        >
+          48hr
+        </span>
+      </div>
+      <div>
+        <div
+          class="value__item"
+        >
+          Symbol: 
+          BTC
+        </div>
+        <div
+          class="value__item"
+        >
+          Price: 
+          23679.98
+           $
+        </div>
+        <div
+          class="value__item"
+        >
+          Changes: 
+          <span
+            style="color: green;"
+          >
+            3.14
+            %
+          </span>
+        </div>
+        <div
+          class="value__item"
+        >
+          MarketCap: 
+          452445368357.86
+           $
+        </div>
+        <div
+          class="button"
+        >
+          Add
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders value components 1`] = `
+<div
+  class="value"
+  data-testid="value-page"
+>
+  <div>
+    <div
+      class="value__header"
+    >
+      <div
+        class="value__header-back"
+      >
+        Go back
+      </div>
+      <div>
+        Bitcoin
+      </div>
+    </div>
+    <div
+      class="value__content"
+    >
+      <div
+        class="value__graphic"
+      >
+        <canvas
+          height="210px"
+          role="img"
+          width="360px"
+        />
+        <span
+          class="value__graphic-item-active value__graphic-item"
+        >
+          24Hr
+        </span>
+        <span
+          class="false value__graphic-item"
+        >
+          48hr
+        </span>
+      </div>
+      <div>
+        <div
+          class="value__item"
+        >
+          Symbol: 
+          BTC
+        </div>
+        <div
+          class="value__item"
+        >
+          Price: 
+          23679.98
+           $
+        </div>
+        <div
+          class="value__item"
+        >
+          Changes: 
+          <span
+            style="color: green;"
+          >
+            3.14
+            %
+          </span>
+        </div>
+        <div
+          class="value__item"
+        >
+          MarketCap: 
+          452445368357.86
+           $
+        </div>
+        <div
+          class="button"
+        >
+          Add
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

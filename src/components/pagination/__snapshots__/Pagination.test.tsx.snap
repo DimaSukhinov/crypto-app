@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination pagination components render 1`] = `
+<div
+  class="pages"
+  data-testid="pagination"
+>
+  <span
+    class="pages__page pages__page-active"
+    data-testid="pagination-elem"
+  >
+    1
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    2
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    3
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    4
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    5
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    6
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    7
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    8
+  </span>
+</div>
+`;
+
+exports[`pagination components render 1`] = `
+<div
+  class="pages"
+  data-testid="pagination"
+>
+  <span
+    class="pages__page pages__page-active"
+    data-testid="pagination-elem"
+  >
+    1
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    2
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    3
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    4
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    5
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    6
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    7
+  </span>
+  <span
+    class="pages__page"
+    data-testid="pagination-elem"
+  >
+    8
+  </span>
+</div>
+`;

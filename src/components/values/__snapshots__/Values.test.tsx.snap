@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Values values components render 1`] = `
+<div
+  data-testid="values-page"
+>
+  <div
+    class="values-list"
+    data-testid="values-list"
+  />
+  <div
+    class="pages"
+    data-testid="pagination"
+  />
+</div>
+`;
+
+exports[`values components render 1`] = `
+<div
+  data-testid="values-page"
+>
+  <div
+    class="values-list"
+    data-testid="values-list"
+  />
+  <div
+    class="pages"
+    data-testid="pagination"
+  />
+</div>
+`;

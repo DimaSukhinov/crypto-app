@@ -24,7 +24,7 @@ export const Header = React.memo(({values}: HeaderPropsType) => {
         <div className={'header'} data-testid={'header'}>
             <div className={'header__container'}>
                 <div className={'header__popular-values'}>
-                    {TopThreeValues.map(v => <div className={'header__item'}>
+                    {TopThreeValues.map(v => <div key={v.rank} className={'header__item'}>
                         <span>{v.symbol} </span>
                         {+v.priceUsd > 1 ? +(+v.priceUsd).toFixed(2) : +(+v.priceUsd).toFixed(5)}$
                     </div>)}

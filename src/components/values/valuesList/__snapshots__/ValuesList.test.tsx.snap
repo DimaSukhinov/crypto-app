@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Values list renders values list components 1`] = `
+<div
+  class="values-list"
+  data-testid="values-list"
+>
+  <div
+    class="values-list__value"
+    data-testid="value-list-elem"
+  >
+    <div
+      class="values-list__rank"
+    >
+      1
+    </div>
+    <div
+      class="values-list__symbol"
+    >
+      BTC
+    </div>
+    <div
+      class="values-list__name"
+    >
+      Bitcoin
+    </div>
+    <div
+      class="values-list__price"
+    >
+      23679.98
+       $
+    </div>
+    <div
+      class="values-list__changes"
+      style="color: green;"
+    >
+      3.14
+      %
+    </div>
+    <div
+      class="button"
+    >
+      Add
+    </div>
+  </div>
+  <div
+    class="values-list__value"
+    data-testid="value-list-elem"
+  >
+    <div
+      class="values-list__rank"
+    >
+      2
+    </div>
+    <div
+      class="values-list__symbol"
+    >
+      BTC
+    </div>
+    <div
+      class="values-list__name"
+    >
+      Ethereum
+    </div>
+    <div
+      class="values-list__price"
+    >
+      23679.98
+       $
+    </div>
+    <div
+      class="values-list__changes"
+      style="color: green;"
+    >
+      3.14
+      %
+    </div>
+    <div
+      class="button"
+    >
+      Add
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders values list components 1`] = `
+<div
+  class="values-list"
+  data-testid="values-list"
+>
+  <div
+    class="values-list__value"
+    data-testid="value-list-elem"
+  >
+    <div
+      class="values-list__rank"
+    >
+      1
+    </div>
+    <div
+      class="values-list__symbol"
+    >
+      BTC
+    </div>
+    <div
+      class="values-list__name"
+    >
+      Bitcoin
+    </div>
+    <div
+      class="values-list__price"
+    >
+      23679.98
+       $
+    </div>
+    <div
+      class="values-list__changes"
+      style="color: green;"
+    >
+      3.14
+      %
+    </div>
+    <div
+      class="button"
+    >
+      Add
+    </div>
+  </div>
+  <div
+    class="values-list__value"
+    data-testid="value-list-elem"
+  >
+    <div
+      class="values-list__rank"
+    >
+      2
+    </div>
+    <div
+      class="values-list__symbol"
+    >
+      BTC
+    </div>
+    <div
+      class="values-list__name"
+    >
+      Ethereum
+    </div>
+    <div
+      class="values-list__price"
+    >
+      23679.98
+       $
+    </div>
+    <div
+      class="values-list__changes"
+      style="color: green;"
+    >
+      3.14
+      %
+    </div>
+    <div
+      class="button"
+    >
+      Add
+    </div>
+  </div>
+</div>
+`;

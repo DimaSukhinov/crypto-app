@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './App.scss';
 import {Navigate, Route, Routes, useNavigate} from 'react-router-dom';
-import {Header} from './components/header/Header';
-import {Values} from './components/values/Values';
-import {Value} from './components/values/value/Value';
-import {AddModal} from './components/modals/addModal/AddModal';
+import {Header} from '../header/Header';
+import {Values} from '../values/Values';
+import {Value} from '../values/value/Value';
+import {AddModal} from '../modals/addModal/AddModal';
 import {useDispatch} from 'react-redux';
-import {setValuesTC, ValueType} from './store/values-reducer';
-import {useAddModal} from './hooks/UseAddModal';
-import {useAppSelector} from './hooks/CustomHooks';
+import {setValuesTC, ValueType} from '../../store/values-reducer';
+import {useAddModal} from '../../hooks/UseAddModal';
+import {useAppSelector} from '../../hooks/CustomHooks';
 import axios from 'axios';
 
 export const App = React.memo(() => {
@@ -60,10 +60,10 @@ export const App = React.memo(() => {
                     <Route path={'/*'} element={<div data-testid={'error-page'}>404</div>}/>
                 </Routes>
             </div>
-            <AddModal values={values} activeAddModal={activeAddModal} closeModal={closeModal}
-                      currentValue={currentValue} valueCount={valueCount}
-                      onValueCountChange={onValueCountChange} error={error} addToPortfolio={addToPortfolio}
-            />
+            {activeAddModal && <AddModal values={values} activeAddModal={activeAddModal} closeModal={closeModal}
+                       currentValue={currentValue} valueCount={valueCount}
+                       onValueCountChange={onValueCountChange} error={error} addToPortfolio={addToPortfolio}
+            />}
         </div>
     );
 })

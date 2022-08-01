@@ -25,7 +25,7 @@ export const Value = React.memo(({value, values, navigateToValues, openAddModal}
 
     return (
         <div className={'value'} data-testid={'value-page'}>
-            {values.map(v => v.id === value && <>
+            {values.map(v => v.id === value && <div key={v.id}>
                 <div className={'value__header'}>
                     <div className={'value__header-back'} onClick={navigateToValues}>Go back</div>
                     <div>{v.name}</div>
@@ -56,7 +56,7 @@ export const Value = React.memo(({value, values, navigateToValues, openAddModal}
                         <Button onClickHandler={() => openAddModal(v.id)}>Add</Button>
                     </div>
                 </div>
-            </>)}
+            </div>)}
         </div>
     );
 })

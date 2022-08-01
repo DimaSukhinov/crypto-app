@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portfolio modal empty portfolio 1`] = `
+<div
+  data-testid="portfolio-modal"
+>
+  <div
+    class="reusableModal"
+    data-testid="space-around-modal"
+  >
+    <div
+      class="reusableModal__content"
+    >
+      <div
+        class="portfolio__empty-portfolio"
+      >
+        You don't have currency
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Portfolio modal not empty portfolio 1`] = `
+<div
+  data-testid="portfolio-modal"
+>
+  <div
+    class="reusableModal"
+    data-testid="space-around-modal"
+  >
+    <div
+      class="reusableModal__content"
+    >
+      <div
+        class="portfolio"
+      >
+        <div
+          class="portfolio__price"
+        >
+          Current price: 
+          947199.19 USD 
+          <span
+            style="color: rgb(10, 189, 10);"
+          >
+            867199.19
+             $ (
+            0.9155
+             %)
+          </span>
+        </div>
+        <div
+          class="portfolio__value"
+          data-testid="portfolio-elem"
+        >
+          <div
+            class="portfolio__name portfolio__element"
+          >
+            Bitcoin
+          </div>
+          <div
+            class="portfolio__amount portfolio__element"
+          >
+            20
+          </div>
+          <div
+            class="portfolio__price-usd portfolio__element"
+          >
+            40000.00
+             $
+          </div>
+          <div
+            class="portfolio__delete-button"
+          >
+            -
+          </div>
+        </div>
+        <div
+          class="portfolio__value"
+          data-testid="portfolio-elem"
+        >
+          <div
+            class="portfolio__name portfolio__element"
+          >
+            Ethereum
+          </div>
+          <div
+            class="portfolio__amount portfolio__element"
+          >
+            20
+          </div>
+          <div
+            class="portfolio__price-usd portfolio__element"
+          >
+            40000.00
+             $
+          </div>
+          <div
+            class="portfolio__delete-button"
+          >
+            -
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

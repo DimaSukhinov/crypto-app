@@ -10,7 +10,7 @@ type PortfolioModalPropsType = {
 export const PortfolioValue = React.memo(({portfolio, removeValueFromPortfolio}: PortfolioModalPropsType) => {
 
     return <>
-        {portfolio.map(v => <div className={'portfolio__value'}>
+        {portfolio.map(v => <div key={v.id} data-testid={'portfolio-elem'} className={'portfolio__value'}>
             <div className={'portfolio__name portfolio__element'}>
                 {v.name}
             </div>

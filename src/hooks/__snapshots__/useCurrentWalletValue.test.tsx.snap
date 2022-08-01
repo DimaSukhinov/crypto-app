@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Values list renders values list components 1`] = `
+<div>
+  947199.19 USD 
+  <span
+    style="color: rgb(10, 189, 10);"
+  >
+    867199.19
+     $ (
+    0.9155
+     %)
+  </span>
+</div>
+`;
+
+exports[`renders wallet value 1`] = `
+<div>
+  947199.19 USD 
+  <span
+    style="color: rgb(10, 189, 10);"
+  >
+    867199.19
+     $ (
+    0.9155
+     %)
+  </span>
+</div>
+`;
+
+exports[`useCurrentWalletValue hook renders wallet value 1`] = `
+<div>
+  947199.19 USD 
+  <span
+    style="color: rgb(10, 189, 10);"
+  >
+    867199.19
+     $ (
+    0.9155
+     %)
+  </span>
+</div>
+`;
