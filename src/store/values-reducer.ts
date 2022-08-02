@@ -21,25 +21,6 @@ export const setValuesAC = (values: ValueType[]) => {
     return {type: SET_VALUES, values} as const
 }
 
-export const setValuesTC = (setValue: any) => (dispatch: Dispatch) => {
-    cryptoAPI.allValues()
-        .then((data) => {
-            dispatch(setValuesAC(data.data.data))
-        })
-        .finally(() => {
-            let portfolio = localStorage.getItem('portfolio')
-            if (portfolio !== null) {
-                dispatch(setPortfolioAC(JSON.parse(portfolio)))
-            }
-
-            let value = sessionStorage.getItem('value')
-            if (value) {
-                let newValue = JSON.parse(value)
-                setValue(newValue)
-            }
-        })
-}
-
 type ActionsType = ReturnType<typeof setValuesAC>
 
 export type ValueType = {
