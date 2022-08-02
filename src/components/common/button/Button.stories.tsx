@@ -1,24 +1,24 @@
 import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {Button} from './Button';
-import {action} from '@storybook/addon-actions';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Button } from './Button';
+import { action } from '@storybook/addon-actions';
 
 export default {
-    title: 'Crypto app/Button',
-    component: Button,
-    argTypes: {
-        onClickHandler: {
-            description: 'Clicked'
-        },
-        backgroundColor: {control: 'color'},
-        color: {control: 'color'},
+  title: 'Crypto app/Button',
+  component: Button,
+  argTypes: {
+    onClickHandler: {
+      description: 'Clicked',
     },
-} as ComponentMeta<typeof Button>
+    backgroundColor: { control: 'color' },
+    color: { control: 'color' },
+  },
+} as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-export const Primary = Template.bind({})
+export const Primary = Template.bind({});
 Primary.args = {
-    children: 'Add',
-    onClickHandler: action('Clicked')
-}
+  children: 'Add',
+  onClickHandler: action('Clicked'),
+};
