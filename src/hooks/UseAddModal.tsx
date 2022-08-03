@@ -24,7 +24,7 @@ export const useAddModal = (
   }, [setError, setValueCount]);
 
   const addToPortfolio = useCallback((id: string, name: string, price: string, valueCount: number) => () => {
-    if (valueCount > 0) {
+    if (valueCount >= 0.1 && valueCount <= 1000) {
       let value: PortfolioType = { id: id, name: name, price: +price, valueCount: valueCount };
       dispatch(addToPortfolioAC(value));
       setActiveAddModal(false);

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './Value.scss';
 import { ValueType } from '../../../store/values-reducer';
-import { Chart } from '../../chart/Chart';
+import { LineChart } from '../../charts/LineChart';
 import { Button } from '../../common/button/Button';
 import { useQuery } from '@apollo/client';
 import { GET_GRAPHIC } from '../../../api/GraphqlRequests';
@@ -45,7 +45,7 @@ export const Value = React.memo(({ value, values, navigateToValues, openAddModal
         </div>
         <div className={'value__content'}>
           <div className={'value__graphic'}>
-            <Chart data={chartData} chartValue={chartValue} />
+            <LineChart data={chartData} chartValue={chartValue} />
             <span className={`${chartValue === 'day' && 'value__graphic-item-active'} value__graphic-item`}
                   onClick={drawChart('day')}>24Hr</span>
             <span

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { GraphicDataType } from '../values/value/Value';
 
@@ -7,10 +7,8 @@ type ChartPropsType = {
   data: GraphicDataType[]
 }
 
-export const Chart = React.memo(({ data, chartValue }: ChartPropsType) => {
+export const LineChart = React.memo(({ data, chartValue }: ChartPropsType) => {
 
 
-  return <>
-
-  </>;
+  return <svg />;
 });

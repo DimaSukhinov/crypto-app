@@ -18,7 +18,7 @@ export const App = React.memo(() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const values = useAppSelector((store) => store.values);
-  const { data, loading, error } = useQuery(GET_ALL_VALUES);
+  const { data, loading } = useQuery(GET_ALL_VALUES);
 
   const [currentValue, setCurrentValue] = useState<string>('');
   const [valueCount, setValueCount] = useState<number>(0);
