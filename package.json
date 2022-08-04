@@ -17,9 +17,11 @@
     "@types/react-redux": "^7.1.24",
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
+    "cypress": "^10.4.0",
     "d3": "^7.6.1",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-prettier": "^4.2.1",
     "gh-pages": "^4.0.0",
     "graphql": "^16.5.0",
@@ -33,6 +35,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "start-server-and-test": "^1.14.0",
     "storybook": "^6.5.9",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
@@ -41,6 +44,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:cypress": "start-server-and-test start http://localhost:3000 cypress",
+    "cypress": "cypress open",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -50,7 +55,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:cypress/recommended"
     ],
     "overrides": [
       {
