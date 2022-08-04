@@ -2,6 +2,8 @@ import * as cypress from 'cypress';
 
 describe('Pagination E2E', () => {
 
+  sessionStorage.setItem('page', '1')
+
   it('Page value should change', () => {
     cy.visit('/');
 

@@ -5,14 +5,18 @@ import { App } from './App';
 import { Provider } from 'react-redux';
 import { store } from '../../store/store';
 import { MemoryRouter } from 'react-router-dom';
+import { client } from '../../index';
+import { ApolloProvider } from '@apollo/client';
 
 describe('App', () => {
 
   test('renders header and values-page components', () => {
     render(<MemoryRouter initialEntries={['/', '/values']}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <ApolloProvider client={client}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ApolloProvider>
     </MemoryRouter>);
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('values-page')).toBeInTheDocument();
@@ -21,9 +25,11 @@ describe('App', () => {
 
   test('error page test', () => {
     render(<MemoryRouter initialEntries={['/ghwwgtw']}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <ApolloProvider client={client}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ApolloProvider>
     </MemoryRouter>);
     const errorPage = screen.getByTestId('error-page');
     expect(errorPage).toBeInTheDocument();

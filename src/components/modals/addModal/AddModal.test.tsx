@@ -38,7 +38,7 @@ describe('Add modal', () => {
     expect(screen.getByTestId('add-modal')).toBeInTheDocument();
     expect(screen.getByTestId('add-modal')).toMatchSnapshot();
 
-    expect(screen.getByText(/incorrect value/i)).toBeInTheDocument();
-    expect(screen.getByText(/incorrect value/i)).toHaveStyle({ color: 'red' });
+    expect(screen.getByText(/min 0.1, max 1000/i)).toBeInTheDocument();
+    expect(screen.getByText(/min 0.1, max 1000/i)).toHaveStyle({ color: 'red' });
   });
 });

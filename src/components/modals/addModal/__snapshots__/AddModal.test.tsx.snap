@@ -1,88 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Add modal Add modal with error 1`] = `
-<div
-  data-testid="add-modal"
->
-  <div
-    class="reusableModal"
-    data-testid="space-around-modal"
-  >
-    <div
-      class="reusableModal__content"
-    >
-      <div
-        class="modal"
-      >
-        <span
-          class="modal__item"
-        >
-          Bitcoin
-        </span>
-        <input
-          class="modal__item"
-          type="number"
-        />
-        <div
-          style="color: red;"
-        >
-          Incorrect value
-        </div>
-        <span
-          class="modal__item"
-        >
-          Price: 
-        </span>
-        <div
-          class="button"
-        >
-          Add
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Add modal Add modal without error 1`] = `
-<div
-  data-testid="add-modal"
->
-  <div
-    class="reusableModal"
-    data-testid="space-around-modal"
-  >
-    <div
-      class="reusableModal__content"
-    >
-      <div
-        class="modal"
-      >
-        <span
-          class="modal__item"
-        >
-          Bitcoin
-        </span>
-        <input
-          class="modal__item"
-          type="number"
-        />
-        <span
-          class="modal__item"
-        >
-          Price: 
-        </span>
-        <div
-          class="button"
-        >
-          Add
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Add modal with error 1`] = `
 <div
   data-testid="add-modal"
@@ -107,9 +24,10 @@ exports[`Add modal with error 1`] = `
           type="number"
         />
         <div
+          class="modal__error"
           style="color: red;"
         >
-          Incorrect value
+          min 0.1, max 1000
         </div>
         <span
           class="modal__item"
@@ -119,8 +37,17 @@ exports[`Add modal with error 1`] = `
         <div
           class="button"
         >
-          Add
+          <span
+            class="modal__buttonText"
+          >
+            Add
+          </span>
         </div>
+      </div>
+      <div
+        class="reusableModal__close"
+      >
+        X
       </div>
     </div>
   </div>
@@ -158,8 +85,17 @@ exports[`Add modal without error 1`] = `
         <div
           class="button"
         >
-          Add
+          <span
+            class="modal__buttonText"
+          >
+            Add
+          </span>
         </div>
+      </div>
+      <div
+        class="reusableModal__close"
+      >
+        X
       </div>
     </div>
   </div>

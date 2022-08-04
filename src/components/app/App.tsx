@@ -72,7 +72,7 @@ export const App = React.memo(() => {
                  element={<Value values={values} value={value} navigateToValues={navigateToValues}
                                  openAddModal={openAddModal} />}
           />
-          <Route path={'/*'} element={<div data-testid={'InputError-page'}>404</div>} />
+          <Route path={'/*'} element={<div data-testid={'error-page'}>404</div>} />
         </Routes>
       </div>
       {activeAddModal && <AddModal values={values} activeAddModal={activeAddModal} closeModal={closeModal}

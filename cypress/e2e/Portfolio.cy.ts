@@ -10,7 +10,7 @@ describe('Portfolio E2E', () => {
     cy.get('.modal__buttonText').should('have.text', 'Add').click();
 
     cy.get('.header__portfolio-button').click();
-    cy.get('.portfolio__name').should('have.text', 'Bitcoin');
+    cy.contains('Bitcoin');
 
     cy.get('.portfolio__delete-button').click();
     cy.contains('Yes').click();

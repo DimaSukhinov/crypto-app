@@ -16,14 +16,11 @@ type ValuePropsType = {
 export type GraphicDataType = {
   date: string
   priceUsd: string
-  time: number
-  circulatingSupply: string
 }
 
 export const Value = React.memo(({ value, values, navigateToValues, openAddModal }: ValuePropsType) => {
 
-  const { data, loading, error } = useQuery(GET_GRAPHIC, { variables: { id: value } });
-  const [chartValue, setChartValue] = useState<'day' | '2days'>('day');
+  const { data, loading } = useQuery(GET_GRAPHIC, { variables: { id: value } });
   const [chartData, setChartData] = useState<GraphicDataType[]>([]);
 
   useEffect(() => {
@@ -31,10 +28,6 @@ export const Value = React.memo(({ value, values, navigateToValues, openAddModal
       setChartData(data.getGraphicData);
     }
   }, [value, data]);
-
-  const drawChart = useCallback((value: 'day' | '2days') => () => {
-    setChartValue(value);
-  }, []);
 
   return (
     <div className={'value'} data-testid={'value-page'}>
@@ -45,12 +38,7 @@ export const Value = React.memo(({ value, values, navigateToValues, openAddModal
         </div>
         <div className={'value__content'}>
           <div className={'value__graphic'}>
-            <LineChart data={chartData} chartValue={chartValue} />
-            <span className={`${chartValue === 'day' && 'value__graphic-item-active'} value__graphic-item`}
-                  onClick={drawChart('day')}>24Hr</span>
-            <span
-              className={`${chartValue === '2days' && 'value__graphic-item-active'} value__graphic-item`}
-              onClick={drawChart('2days')}>48hr</span>
+            <LineChart data={chartData} />
           </div>
           <div>
             <div className={'value__item'}>

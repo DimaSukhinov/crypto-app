@@ -2,6 +2,8 @@ import * as cypress from 'cypress';
 
 describe('Values E2E', () => {
 
+  sessionStorage.setItem('page', '1')
+
   it('the first currency of the values list must be added to portfolio', () => {
     cy.visit('/');
 

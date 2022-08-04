@@ -16,6 +16,11 @@ exports[`Portfolio modal empty portfolio 1`] = `
       >
         You don't have currency
       </div>
+      <div
+        class="reusableModal__close"
+      >
+        X
+      </div>
     </div>
   </div>
 </div>
@@ -101,6 +106,43 @@ exports[`Portfolio modal not empty portfolio 1`] = `
             -
           </div>
         </div>
+        <div
+          style="height: 390px; display: flex; align-items: flex-end; justify-content: center;"
+        >
+          <svg
+            height="250"
+            style="overflow: visible;"
+            width="250"
+          >
+            <path
+              d="M7.654042494670958e-15,-125A125,125,0,1,1,7.654042494670958e-15,125L0,0Z"
+              fill="#66c2a5"
+              stroke="white"
+            />
+            <path
+              d="M7.654042494670958e-15,125A125,125,0,1,1,-2.2962127484012872e-14,-125L0,0Z"
+              fill="#66c2a5"
+              stroke="white"
+            />
+            <text
+              style="text-anchor: middle;"
+              transform="translate(62.5,0)"
+            >
+              Bitcoin
+            </text>
+            <text
+              style="text-anchor: middle;"
+              transform="translate(-62.5,7.654042494670958e-15)"
+            >
+              Ethereum
+            </text>
+          </svg>
+        </div>
+      </div>
+      <div
+        class="reusableModal__close"
+      >
+        X
       </div>
     </div>
   </div>
