@@ -6,7 +6,7 @@ describe('Value E2E', () => {
 
   it('Value page should open', () => {
     cy.visit('/');
-    cy.get('.values-list__value').first().click();
+    cy.get('[data-testid="value-list-elem"]').first().click();
 
     cy.contains('Bitcoin');
     cy.contains('Symbol: BTC');
@@ -14,7 +14,7 @@ describe('Value E2E', () => {
 
   it('Value page should close', () => {
     cy.visit('/');
-    cy.get('.values-list__value').first().click();
+    cy.get('[data-testid="value-list-elem"]').first().click();
 
     cy.contains('Bitcoin');
 
@@ -23,7 +23,7 @@ describe('Value E2E', () => {
 
   it('Add modal should open', () => {
     cy.visit('/');
-    cy.get('.values-list__value').first().click();
+    cy.get('[data-testid="value-list-elem"]').first().click();
 
     cy.contains('Add').click();
   });

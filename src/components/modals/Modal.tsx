@@ -12,7 +12,7 @@ export const Modal = React.memo(({ closeModal, children }: ModalPropsType) => {
     <div className={'reusableModal'} onClick={closeModal} data-testid={'space-around-modal'}>
       <div className={'reusableModal__content'} onClick={e => e.stopPropagation()}>
         {children}
-        <div className={'reusableModal__close'} onClick={closeModal}>X</div>
+        <div className={'reusableModal__close'} data-testid={'close-modal'} onClick={closeModal}>X</div>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export const PortfolioValue = React.memo(({ portfolio, removeValueFromPortfolio 
 
   return <>
     {portfolio.map(v => <div key={v.id} data-testid={'portfolio-elem'} className={'portfolio__value'}>
-      <div className={'portfolio__name portfolio__element'}>
+      <div className={'portfolio__name portfolio__element'} data-testid={'portfolio-value-name'}>
         {v.name}
       </div>
       <div className={'portfolio__amount portfolio__element'}>
@@ -20,7 +20,7 @@ export const PortfolioValue = React.memo(({ portfolio, removeValueFromPortfolio 
       <div className={'portfolio__price-usd portfolio__element'}>
         {(v.valueCount * v.price).toFixed(2)} $
       </div>
-      <div className={'portfolio__delete-button'} onClick={removeValueFromPortfolio(v.id)}>
+      <div className={'portfolio__delete-button'} data-testid={'delete-button'} onClick={removeValueFromPortfolio(v.id)}>
         -
       </div>
     </div>)}

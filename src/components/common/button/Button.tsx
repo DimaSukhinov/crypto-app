@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import './Button.scss';
 
 type ButtonPropsType = {
@@ -10,7 +10,7 @@ type ButtonPropsType = {
 
 export const Button = React.memo(({ onClickHandler, children, backgroundColor, color }: ButtonPropsType) => {
 
-  return <div className={'button'} style={{ backgroundColor: backgroundColor, color: color }}
+  return <div className={'button'} style={{ backgroundColor: backgroundColor, color: color }} data-testid={'button'}
               onClick={e => {
                 e.stopPropagation();
                 onClickHandler();

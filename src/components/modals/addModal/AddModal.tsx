@@ -25,13 +25,13 @@ export const AddModal = React.memo(({
       {activeAddModal && <Modal closeModal={closeModal}>
         {values.map(v => v.id === currentValue && <div key={v.id} className={'modal'}>
           <span className={'modal__item'}>{v.name}</span>
-          <input type='number' onChange={onValueCountChange} className={'modal__item'} />
-          {error && <div style={{ color: 'red' }} className={'modal__error'}>min 0.1, max 1000</div>}
+          <input type='number' onChange={onValueCountChange} className={'modal__item'} data-testid={'value-input'} />
+          {error && <div style={{ color: 'red' }} className={'modal__error'} data-testid={'add-error'}>min 0.1, max 1000</div>}
           <span className={'modal__item'}>
             Price: {valueCount > 0 && (valueCount * +v.priceUsd).toFixed(2) + '$'}
           </span>
           <Button onClickHandler={addToPortfolio(v.id, v.name, v.priceUsd, valueCount)}>
-            <span className={'modal__buttonText'}>Add</span>
+            <span className={'modal__buttonText'} data-testid={'add-button'}>Add</span>
           </Button>
         </div>)}
       </Modal>}

@@ -55,7 +55,7 @@ export const PortfolioModal = React.memo(({
                 <ConfirmDeletionModal valueForDelete={valueForDelete} confirm={confirmValueDelete}
                                       reject={rejectValueDelete} />}
             </div>
-            : <div className={'portfolio__empty-portfolio'}>You don't have currency</div>
+            : <div className={'portfolio__empty-portfolio'} data-testid={'empty-portfolio'}>You don't have currency</div>
         }
       </Modal>
     </div>}
