@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 type CircleChartPropsType = {
@@ -13,13 +13,8 @@ type ChartDataType = {
 
 export const CircleChart = React.memo(({ data }: CircleChartPropsType) => {
 
-  const svgRef: any = useRef();
-  const colors: any = [
-    `#fff`, `#000`, `#fff`, `#000`,
-  ];
-
+  const svgRef = useRef();
   const color = d3.scaleOrdinal().range(d3.schemeSet2);
-
 
   useEffect(() => {
 
@@ -31,15 +26,14 @@ export const CircleChart = React.memo(({ data }: CircleChartPropsType) => {
       .attr('height', h)
       .style('overflow', 'visible');
 
-    const formattedData = d3.pie().value((d: any) => d.price)(data);
+    const formattedData = d3.pie().value(d => d.price)(data);
     const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
 
     svg.selectAll()
       .data(formattedData)
       .join('path')
       .attr('d', arcGenerator)
-      .attr('fill', (d: any) => color(d.value))
-      // .attr('fill', colors.map(c => c))
+      .attr('fill', d => color(d.value))
       .attr('stroke', 'white');
 
     svg.selectAll()
